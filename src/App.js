@@ -21,7 +21,7 @@ function App() {
         </Switch>
         
       </div>
-      <Music />
+      <Music song="迷人的危险" />
     </div>
   );
 }

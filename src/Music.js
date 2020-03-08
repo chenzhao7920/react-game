@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import './Game.css'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -17,8 +17,15 @@ class Music extends React.Component {
     artist: "",
     isLoading: false,
   }
+
   currentSongIndex = 0
   songs = [
+    {
+      url: "https://music.163.com/song/media/outer/url?id=1399534395.mp3",
+      imageUrl: "http://imge.kugou.com/stdmusic/20170810/20170810111013866169.jpg",
+      name: "世界美好与你环环相扣",
+      artist: "未知",
+    },
     {
       url: "http://mp3.9ku.com/mp3/588/587570.mp3",
       imageUrl: "https://p1.pstatp.com/large/pgc-image/6efc96251b2244509f3ee383c15193de",
@@ -37,7 +44,7 @@ class Music extends React.Component {
       name: "打上花火",
       artist: "DAOKO、米津玄師",
     },
-
+    
   ]
 
   nextSong(){
@@ -51,9 +58,30 @@ class Music extends React.Component {
   }
 
   componentDidMount() {
+    $(".audio-player-small").css("display", "flex").hide().slideDown(2500, function(){
+      console.log("FadeinDone")
+    });
     var r = this;
-    r.nextSong();
-
+    
+    if(r.props.song != undefined && r.props.song.length > 0){
+      var isfound = false;
+      for(var i = 0; i < this.songs.length; i++){
+        if(this.songs[i].name === r.props.song){
+          isfound = true;
+          this.setState({ //更新歌曲
+            url: this.songs[i].url,
+            imageUrl: this.songs[i].imageUrl,
+            name: this.songs[i].name,
+            artist: this.songs[i].artist,
+          })
+          break;
+        }
+      }
+      if(!isfound) r.nextSong();
+    }else{
+      r.nextSong();
+    }
+    
 
     var jQuery = $;
     $("#player").on("timeupdate", function () {
@@ -71,7 +99,6 @@ class Music extends React.Component {
     })
 
     initPlayers(jQuery('#player-container').length);
-    console.log(jQuery('#player-container').length)
     function calculateTotalValue(length) {
       var minutes = Math.floor(length / 60),
         seconds_int = length - minutes * 60,
@@ -91,6 +118,10 @@ class Music extends React.Component {
       return current_time;
     }
 
+
+    var r = 0x77;
+    var g = 0x00;
+    var b = 0x20;
     function initProgressBar() {
 
       var player = document.getElementById('player');
@@ -100,6 +131,16 @@ class Music extends React.Component {
         $('#play-btn').addClass("pause")
       }
       var current_time = player.currentTime;
+      
+      var c =颜色渐变(r, 0xff, g, 0xff, b, 0xff);
+      $(".spinner").css("background-color", c)
+      console.log(c);
+      r++;
+      g++;
+      b++;
+      r %= 0xff;
+      g %= 0xff;
+      b %= 0xff;
 
       // calculate total length of value
       var totalLength = calculateTotalValue(length)
@@ -126,6 +167,8 @@ class Music extends React.Component {
 
         player.currentTime = percent * player.duration;
         progressbar.value = percent / 100;
+        $(".done").css("width", (player.currentTime / player.duration)*100+"%")
+
       }
     };
 
@@ -168,11 +211,24 @@ class Music extends React.Component {
         }());
       }
     }
+
+    function 颜色渐变(fromRed, endRed, fromGreen, endGreen, fromBlue, endBlue){
+      if(fromRed > endRed) fromRed--;
+      if(fromRed < endRed) fromRed++;
+      if(fromGreen > endGreen) fromGreen--;
+      if(fromGreen < endGreen) fromGreen++;
+      if(fromBlue > endBlue) fromBlue--;
+      if(fromBlue < endBlue) fromBlue++;
+      return "#" + Number(fromRed).toString(16) +"" + Number(fromGreen).toString(16) +"" + Number(fromBlue).toString(16);
+    }
+
+
   }
 
   render() {
-    return (
-      <div className="audio-player-small">
+    return (     
+       <div className="audio-player-small">
+
         <div id="play-btn" className="pause"></div>
         <div id="next" ></div>
         <div className="audio-wrapper" id="player-container" href="javascript:;">
