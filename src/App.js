@@ -7,18 +7,21 @@ import HomePage from './HomePage'
 import Game from './Game'
 import About from './About'
 import PageHeader from './PageHeader'
+import Music from './Music'
 
 function App() {
   return (
     <div>
-    <PageHeader />    
-    <div className="container">
-    <Switch>
-      <Route exact path="/" component={ HomePage } />
-      <Route path="/game" component={ Game } />
-      <Route path="/About" component={ About } />
-    </Switch>
-    </div>
+      <PageHeader />
+      <div className="container">
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/game" component={Game} />
+          <Route path="/About" component={About} />
+        </Switch>
+        
+      </div>
+      <Music />
     </div>
   );
 }
