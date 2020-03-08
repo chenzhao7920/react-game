@@ -13,8 +13,25 @@ class Game extends React.Component {
         red: true,
         done: 0,
         isWin: '否',
+        winner: '红',
     }
 
+    win(){
+        this.setState({
+            isWin: '是',
+        })
+        if(this.state.red){
+            this.setState({
+                winner: "绿",
+            })
+        }else{
+            this.setState({
+                winner: '红',
+            })
+        }
+        console.log(this.state);
+        alert(this.state.winner + " 胜利")
+    }
 
     func(){
         console.log("func");
@@ -69,45 +86,28 @@ class Game extends React.Component {
             if (gezi1 != "black" && gezi1 === gezi2 && gezi2 === gezi3) {
                 console.log("win");
                 isclickable = false;
-                g.setState({
-                    isWin: '是',
-                })
+                g.win();
             } else if (gezi4 != "black" && gezi4 === gezi5 && gezi5 === gezi6) {
                 console.log("win");
-                g.setState({
-                    isWin: '是',
-                })
+                g.win();
             } else if (gezi7 != "black" && gezi7 === gezi8 && gezi8 === gezi9) {
                 console.log("win");
-                g.setState({
-                    isWin: '是',
-                })
+                g.win();
             } else if (gezi1 != "black" && gezi1 === gezi4 && gezi1 === gezi7) {
                 console.log("win");
-                g.setState({
-                    isWin: '是',
-                })
+                g.win();
             } else if (gezi2 != "black" && gezi2 === gezi5 && gezi5 === gezi8) {
                 console.log("win");
-                g.setState({
-                    isWin: '是',
-                    
-                })
+                g.win();
             } else if (gezi3 != "black" && gezi3 === gezi6 && gezi6 === gezi9) {
                 console.log("win");
-                g.setState({
-                    isWin: '是',
-                })
+                g.win();
             } else if (gezi1 != "black" && gezi1 === gezi5 && gezi5 === gezi9) {
                 console.log("win");
-                g.setState({
-                    isWin: '是',
-                })
+                g.win();
             } else if (gezi3 != "black" && gezi3 === gezi5 && gezi5 === gezi7) {
                 console.log("win");
-                g.setState({
-                    isWin: '是',
-                })
+                g.win();
             }
         })
 
