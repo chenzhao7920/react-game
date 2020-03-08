@@ -62,7 +62,7 @@ class Music extends React.Component {
       r.nextSong();
       $("#player")[0].load();
       $("#player")[0].play();
-      console.log($("#player")[0].duration)
+      // console.log($("#player")[0].duration)
     })
     $("#next").on("click", function(){
       r.nextSong();

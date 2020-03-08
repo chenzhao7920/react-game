@@ -32,17 +32,9 @@ class Game extends React.Component {
     componentDidMount() {
         var g = this; //需要一个当前React ObJect来更新他的状态
         var isclickable = true;
-        var gezi1 = "black";
-        var gezi2 = "black";
-        var gezi3 = "black";
-        var gezi4 = "black";
-        var gezi5 = "black";
-        var gezi6 = "black";
-        var gezi7 = "black";
-        var gezi8 = "black";
-        var gezi9 = "black";
 
-        var gezi = ["black", "black", "black", "black", "black", "black", "black", "black", "black",]
+        var gezi = ["black", "black", "black", "black", "black", "black", "black", "black", "black"]
+       
         $("#btn").on("click",function(){
             $(".gezi").css("background", "black");
             g.setState({
@@ -51,16 +43,7 @@ class Game extends React.Component {
                 isWin: '否',
             })
             isclickable = true;
-            gezi1 = "black";
-            gezi2 = "black";
-            gezi3 = "black";
-            gezi4 = "black";
-            gezi5 = "black";
-            gezi6 = "black";
-            gezi7 = "black";
-            gezi8 = "black";
-            gezi9 = "black";
-            gezi = ["black", "black", "black", "black", "black", "black", "black", "black", "black",];  
+            gezi = ["black", "black", "black", "black", "black", "black", "black", "black", "black"];  
             
         })
         $(".gezi").on("click", function () {
@@ -94,51 +77,51 @@ class Game extends React.Component {
                     })
                 }
             }
-            if (gezi1 != "black" && gezi1 === gezi2 && gezi2 === gezi3) {
+            if (gezi[0] !== "black" && gezi[0] === gezi[1] && gezi[1] === gezi[2]) {
                 console.log("win");
                 isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
                 // g.togglePop();
-            } else if (gezi4 != "black" && gezi4 === gezi5 && gezi5 === gezi6) {
+            } else if (gezi[3] !== "black" && gezi[3] === gezi[4] && gezi[4] === gezi[5]) {
                 console.log("win");
                 isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
-            } else if (gezi7 != "black" && gezi7 === gezi8 && gezi8 === gezi9) {
+            } else if (gezi[6] !== "black" && gezi[6] === gezi[7] && gezi[7] === gezi[8]) {
                 console.log("win");
                 isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
-            } else if (gezi1 != "black" && gezi1 === gezi4 && gezi1 === gezi7) {
+            } else if (gezi[0] !== "black" && gezi[0] === gezi[3] && gezi[0] === gezi[6]) {
                 console.log("win");
                 isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
-            } else if (gezi2 != "black" && gezi2 === gezi5 && gezi5 === gezi8) {
+            } else if (gezi[1] !== "black" && gezi[1] === gezi[4] && gezi[4] === gezi[7]) {
                 console.log("win");
                 isclickable = false;
                 g.setState({
                     isWin: '是',
                     
                 })
-            } else if (gezi3 != "black" && gezi3 === gezi6 && gezi6 === gezi9) {
+            } else if (gezi[2] !== "black" && gezi[2] === gezi[5] && gezi[5] === gezi[8]) {
                 console.log("win");
                 isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
-            } else if (gezi1 != "black" && gezi1 === gezi5 && gezi5 === gezi9) {
+            } else if (gezi[0] !== "black" && gezi[0] === gezi[4] && gezi[4] === gezi[8]) {
                 console.log("win");
                 isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
-            } else if (gezi3 != "black" && gezi3 === gezi5 && gezi5 === gezi7) {
+            } else if (gezi[2] !== "black" && gezi[2] === gezi[4] && gezi[4] === gezi[7]) {
                 console.log("win");
                 isclickable = false;
                 g.setState({
@@ -153,36 +136,6 @@ class Game extends React.Component {
             var idx = parseInt(格子id) - 1;
             if (gezi[idx] != "black") return false;
             gezi[idx] = 颜色;
-            switch (格子id) {
-                case "1":
-                    gezi1 = 颜色
-                    break;
-                case "2":
-                    gezi2 = 颜色
-                    break;
-                case "3":
-                    gezi3 = 颜色
-                    break;
-                case "4":
-                    gezi4 = 颜色
-                    break;
-                case "5":
-                    gezi5 = 颜色
-                    break;
-                case "6":
-                    gezi6 = 颜色
-                    break;
-                case "7":
-                    gezi7 = 颜色
-                    break;
-                case "8":
-                    gezi8 = 颜色
-                    break
-                case "9":
-                    gezi9 = 颜色
-                    break;
-            }
-
             return true;
         }
     }
