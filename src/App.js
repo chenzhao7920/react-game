@@ -8,7 +8,7 @@ import Game from './Game'
 import About from './About'
 import PageHeader from './PageHeader'
 import Music from './Music'
-
+import Knight from './Knight'
 function App() {
   return (
     <div>
@@ -18,6 +18,7 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route path="/game" component={Game} />
           <Route path="/About" component={About} />
+          <Route path= "/knight" component = {Knight} />
         </Switch>
         
       </div>

@@ -31,7 +31,7 @@ class PageHeader extends React.Component{
                         </a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <NavLink to="/game" className="dropdown-item">踩格子</NavLink> 
-                        <a className="dropdown-item" href="#">我想想</a>
+                        <NavLink to="/knight" className="dropdown-item">骑士</NavLink> 
                         <div className="dropdown-divider"></div>
                         <a className="dropdown-item" href="#">还没想好</a>
                         </div>
