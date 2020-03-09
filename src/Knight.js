@@ -13,176 +13,162 @@ class Knight extends React.Component {
     state = {//state是React组件的一个内置对象，使用setState()方法可以便捷的更新页面（159行）。
         done: 0,
         isWin: '否',
-        isclickable : true,   
-        laststep: -1,
+        gameover: false
     }
 
-    
-    func(){
-        console.log("func");
-        this.state.done++;
-    }
-
-    // togglePop = ()=>{
-    //     this.setState({
-    //         seen: !this.state.seen,
-    //         isWin: '是'
-    //     });
-    // } 
     componentDidMount() {
         var g = this; //需要一个当前React ObJect来更新他的状态
         var isclickable = true;
-        
+
         var gezi = [];
-        for(var i = 0 ; i < 64; i++){
+        for (var i = 0; i < 64; i++) {
             gezi.push("empty");
         }
         var possible = [];
-        console.log(gezi.length);
-       
-        $("#btn").on("click",function(){
+
+
+        $("#btn").on("click", function () {
+
             $(".square").css("background", "blueviolet");
             g.setState({
                 done: 0,
-                isWin: '否',
-                isclickable : true
-
+                isWin: '否'
             })
-            
-            gezi.splice(0,gezi.length);
-            possible.splice(0,possible.length);
-            for(var i = 0 ; i < 64; i++){
+            gezi.splice(0, gezi.length);
+            for (var i = 0; i < 64; i++) {
                 gezi.push("empty");
             }
-             
-            possible.splice(0,possible.length);
-            console.log("after click start,possible.length = " + possible.length);  
-            console.log("after click start, geze.length = " + gezi.length);
-         
+
         })
 
         $(".square").on("click", function () {
-             
-            console.log("possible.length "+ possible.length);
-            var d = g.state.done;               
-             
-            
-            // if(possible.includes(parseInt(id))!==true) {
-            //     console.log("possible.includes(parseInt(id))!==true"+ possible.includes(parseInt(id)));
-            //     return;
-            // }
-                 
-            //把留在possible 里的颜色还原，并且把possible array清空
-             for(var i = 0; i < possible.length;i++){
-                var id= possible[i];
-                $("#"+id).css("background", "blueviolet");        
-            }
-            possible.splice(0,possible.length);
-             
+
+            if (!isclickable) return;
+            var d = g.state.done;
+
+            //获得新的id
             var id = $(this).attr("id");
-            console.log("choice Id is"+ id);
-            var 更新了没 = setSquare(id);
-            if (!更新了没) return;
-            
-            if (更新了没) {
-                $(this).css("background", "#eb8de7");  //set knight to pink
-                g.func();
+            console.log("choice Id is " + id + " gezi[id] " + gezi[id]);
+            //如果新的id是已经选过的格子，则什么也不干，没选过则清空原先的颜色，重新设新格子 
+            if (gezi[id] === 'empty') {
+                //把留在possible 里的颜色还原，并且把possible array清空
+                for (var i = 0; i < possible.length; i++) {
+                    var pId = possible[i];
+                    $("#" + pId).css("background", "blueviolet");
+                }
+                possible.splice(0, possible.length);
+
+                setSquare(id);
+                //set knight to pink
+                $(this).css("background", "#eb8de7");
+                // g.func();
                 d++;
                 g.setState({
                     done: d,
                 })
+
+                isclickable = giveOption(id) > 0 ? true : false;
+                if (isclickable === false){
+                    g.setState({ gameover : true})
+
+                    alert("gameover!");  //gameover;
+                }                
             }
-            if(giveOption(id)>0)
-               isclickable = true;
-            else
-               isclickable = false;
-            //gameover;
-            
+            return
+
         })
 
 
-        //这个函数接受一个格子ID， 和颜色， 然后把gezi状态设为full
+        //这个函数接受一个格子ID， 如果不为空，返回F， 空则gezi状态设为full
         function setSquare(id) {
             var idx = parseInt(id);
-            if (gezi[idx] !== "empty") return false;
-            gezi[idx] = "full";
-            return true;
+            if (gezi[idx] !== "empty") {
+                return false;
+            } else {
+                gezi[idx] = "full";
+                return true;
+            }
         }
-        
+
         //这个函数接受一个格子ID， 算出周边可选的格子（刨除已选过的格子），改变格子颜色作为用户提示b，b
-        function giveOption(id){
+        function giveOption(id) {
             var idx = parseInt(id);
-            var i = idx%8; //col
-            var j = parseInt(idx/8); //row
+            var i = idx % 8; //col
+            var j = parseInt(idx / 8); //row
             //possition 0
-            if((i+2) <= 7 && (j-1) >= 0){
-                var n0= (i+2)+(j-1)*8;
-                if(gezi[n0] !== "full") possible.push(n0);
-             }
+            if ((i + 2) <= 7 && (j - 1) >= 0) {
+                var n0 = (i + 2) + (j - 1) * 8;
+                if (gezi[n0] !== "full") possible.push(n0);
+            }
             //possition 1
-            if((i+1) <= 7 && (j-2) >= 0){
-                var n1=(i+1)+(j-2)*8;
+            if ((i + 1) <= 7 && (j - 2) >= 0) {
+                var n1 = (i + 1) + (j - 2) * 8;
                 // possible.push(n2);
-                if(gezi[n1] !== "full") possible.push(n1);
-             }
+                if (gezi[n1] !== "full") possible.push(n1);
+            }
             //possition 2
-            if((i-1)>=0 && (j-2)>= 0){
-                var n2=(i-1)+(j-2)*8;
+            if ((i - 1) >= 0 && (j - 2) >= 0) {
+                var n2 = (i - 1) + (j - 2) * 8;
                 // possible.push(n2);
-                if(gezi[n2] !== "full") possible.push(n2);
-                 
+                if (gezi[n2] !== "full") possible.push(n2);
+
             }
             //possition 3
-            if((i-2)>= 0 && (j-1)>=0){
-                var n3= (i-2) +(j-1)*8;
+            if ((i - 2) >= 0 && (j - 1) >= 0) {
+                var n3 = (i - 2) + (j - 1) * 8;
                 // possible.push();
-                if(gezi[n3] !== "full") possible.push(n3);
-                
+                if (gezi[n3] !== "full") possible.push(n3);
+
             }
             //possition 4
-            if((i-2)>= 0 && (j+1)<=7){
-                var n4=(i-2) + (j+1)*8;
+            if ((i - 2) >= 0 && (j + 1) <= 7) {
+                var n4 = (i - 2) + (j + 1) * 8;
                 // possible.push();
-                if(gezi[n4] !== "full") possible.push(n4);
-             }
+                if (gezi[n4] !== "full") possible.push(n4);
+            }
             //possition 5
-            if((i-1)>= 0 && (j+2)<= 7){
-                var n5 = (i-1)+(j+2)*8;
+            if ((i - 1) >= 0 && (j + 2) <= 7) {
+                var n5 = (i - 1) + (j + 2) * 8;
                 // possible.push();
-                if(gezi[n5] !== "full") possible.push(n5);
+                if (gezi[n5] !== "full") possible.push(n5);
             }
             //possition 6
-            if((i+1)<=7 &&(j+2)<=7){
-                var n6 = (i+1)+(j+2)*8;
+            if ((i + 1) <= 7 && (j + 2) <= 7) {
+                var n6 = (i + 1) + (j + 2) * 8;
                 // possible.push();
-                if(gezi[n6] !== "full") possible.push(n6);
-             }
+                if (gezi[n6] !== "full") possible.push(n6);
+            }
             //possition 7
-            if((i+2)<=7 && (j+1) <= 7){
-                var n7 = (i+2)+(j+1)*8;
+            if ((i + 2) <= 7 && (j + 1) <= 7) {
+                var n7 = (i + 2) + (j + 1) * 8;
                 // possible.push();
-                if(gezi[n7] !== "full") possible.push(n7);
-            }    
-            console.log("after set knight the possible button.size is "+possible.length);
-            for(var i = 0; i < possible.length;i++){
-                var id= possible[i];
-                $("#"+id).css("background", "#8de3a4");
-                
+                if (gezi[n7] !== "full") possible.push(n7);
+            }
+            console.log("after set knight the possible button.size is " + possible.length);
+            for (var i = 0; i < possible.length; i++) {
+                var id = possible[i];
+                $("#" + id).css("background", "#8de3a4");
+
             }
             return possible.length;
         }
     }
-    
+
     render() {
         return (
             <div className='row'>
                 <div className="col-md-6 info">
                     <p>游戏介绍</p>
-                    <p>任意选一个棋子</p>
-                    <p>选定后,下次落子处必须为上次落子的周围 </p> 
+                    <p>任选一个格子开始</p>
+                    <p>选定后，在选定格子周围会出现一个绿色光环</p>
+                    <p>从光环中选择下一个灼烧点 </p>
+                    <p>每次选定，都会形成新的光环</p>
+                    <p>已灼烧过的地方不可再次点亮</p>
+                    <p>尽可能的灼烧更多更多的格子</p>
+                    <p>挑战开始!</p>
                     <p>已完成步数： {this.state.done}</p>
-                    <p>游戏结束： {this.state.isclickable ? null: true}</p>    
-                    <button id = "btn">Start</button>
+                    <p>游戏结束： {this.state.gameover ? 'true' : null}</p>
+                    <button id="btn">Start</button>
                 </div>
                 <div class="board col-md-6">
                     <div class="row">
@@ -220,7 +206,7 @@ class Knight extends React.Component {
                         </div>
                         <div class="square" id="15">
                         </div>
-                         
+
                     </div>
                     <div class="row">
                         <div class="square" id="16" >
@@ -330,15 +316,14 @@ class Knight extends React.Component {
                         <div class="square" id="63">
                         </div>
                     </div>
-                </div> 
-            </div>    
-                
-            
-            
-             
+                </div>
+            </div>
+
+
+
+
         )
     }
 }
- export default Knight;
+export default Knight;
 
- 
