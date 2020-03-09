@@ -48,36 +48,44 @@ class Knight extends React.Component {
                 isclickable : true
 
             })
-            for(var i = 0 ; i < 64; i++){
-                gezi.pop();
-            }
+            
+            gezi.splice(0,gezi.length);
+            possible.splice(0,possible.length);
             for(var i = 0 ; i < 64; i++){
                 gezi.push("empty");
-            }  
-            for(var i = 0; i < possible.length; i++){
-                possible.pop();
-            } 
+            }
+             
+            possible.splice(0,possible.length);
+            console.log("after click start,possible.length = " + possible.length);  
             console.log("after click start, geze.length = " + gezi.length);
+         
         })
 
         $(".square").on("click", function () {
              
-            console.log("possible.length"+ possible.length);
+            console.log("possible.length "+ possible.length);
             var d = g.state.done;               
-            var id = $(this).attr("id");
-            console.log("choice Id is"+ id);
+             
+            
             // if(possible.includes(parseInt(id))!==true) {
             //     console.log("possible.includes(parseInt(id))!==true"+ possible.includes(parseInt(id)));
             //     return;
             // }
                  
-            //重设possible 里的颜色
-            //
+            //把留在possible 里的颜色还原，并且把possible array清空
+             for(var i = 0; i < possible.length;i++){
+                var id= possible[i];
+                $("#"+id).css("background", "blueviolet");        
+            }
+            possible.splice(0,possible.length);
+             
+            var id = $(this).attr("id");
+            console.log("choice Id is"+ id);
             var 更新了没 = setSquare(id);
             if (!更新了没) return;
             
             if (更新了没) {
-                $(this).css("background", "#eb8de7");
+                $(this).css("background", "#eb8de7");  //set knight to pink
                 g.func();
                 d++;
                 g.setState({
@@ -90,57 +98,6 @@ class Knight extends React.Component {
                isclickable = false;
             //gameover;
             
-            // if (gezi[0] !== "black" && gezi[0] === gezi[1] && gezi[1] === gezi[2]) {
-            //     console.log("win");
-            //     isclickable = false;
-            //     g.setState({
-            //         isWin: '是',
-            //     })
-            //     // g.togglePop();
-            // } else if (gezi[3] !== "black" && gezi[3] === gezi[4] && gezi[4] === gezi[5]) {
-            //     console.log("win");
-            //     isclickable = false;
-            //     g.setState({
-            //         isWin: '是',
-            //     })
-            // } else if (gezi[6] !== "black" && gezi[6] === gezi[7] && gezi[7] === gezi[8]) {
-            //     console.log("win");
-            //     isclickable = false;
-            //     g.setState({
-            //         isWin: '是',
-            //     })
-            // } else if (gezi[0] !== "black" && gezi[0] === gezi[3] && gezi[0] === gezi[6]) {
-            //     console.log("win");
-            //     isclickable = false;
-            //     g.setState({
-            //         isWin: '是',
-            //     })
-            // } else if (gezi[1] !== "black" && gezi[1] === gezi[4] && gezi[4] === gezi[7]) {
-            //     console.log("win");
-            //     isclickable = false;
-            //     g.setState({
-            //         isWin: '是',
-                    
-            //     })
-            // } else if (gezi[2] !== "black" && gezi[2] === gezi[5] && gezi[5] === gezi[8]) {
-            //     console.log("win");
-            //     isclickable = false;
-            //     g.setState({
-            //         isWin: '是',
-            //     })
-            // } else if (gezi[0] !== "black" && gezi[0] === gezi[4] && gezi[4] === gezi[8]) {
-            //     console.log("win");
-            //     isclickable = false;
-            //     g.setState({
-            //         isWin: '是',
-            //     })
-            // } else if (gezi[2] !== "black" && gezi[2] === gezi[4] && gezi[4] === gezi[7]) {
-            //     console.log("win");
-            //     isclickable = false;
-            //     g.setState({
-            //         isWin: '是',
-            //     })
-            // }
         })
 
 
@@ -160,56 +117,57 @@ class Knight extends React.Component {
             //possition 0
             if((i+2) <= 7 && (j-1) >= 0){
                 var n0= (i+2)+(j-1)*8;
-                if(gezi[n1] === "full") possible.push(n0);
-            }
+                if(gezi[n0] !== "full") possible.push(n0);
+             }
             //possition 1
             if((i+1) <= 7 && (j-2) >= 0){
                 var n1=(i+1)+(j-2)*8;
                 // possible.push(n2);
-                if(gezi[n0] !== "full") possible.push(n1);
-            }
+                if(gezi[n1] !== "full") possible.push(n1);
+             }
             //possition 2
             if((i-1)>=0 && (j-2)>= 0){
                 var n2=(i-1)+(j-2)*8;
                 // possible.push(n2);
-                if(gezi[n1] !== "full") possible.push(n2);
+                if(gezi[n2] !== "full") possible.push(n2);
+                 
             }
             //possition 3
             if((i-2)>= 0 && (j-1)>=0){
                 var n3= (i-2) +(j-1)*8;
                 // possible.push();
-                if(gezi[n2] !== "full") possible.push(n3);
+                if(gezi[n3] !== "full") possible.push(n3);
+                
             }
             //possition 4
             if((i-2)>= 0 && (j+1)<=7){
                 var n4=(i-2) + (j+1)*8;
                 // possible.push();
-                if(gezi[n3] !== "full") possible.push(n4);
-                console.log("i is" + i + " j is "+ j );
-            }
+                if(gezi[n4] !== "full") possible.push(n4);
+             }
             //possition 5
             if((i-1)>= 0 && (j+2)<= 7){
                 var n5 = (i-1)+(j+2)*8;
                 // possible.push();
-                if(gezi[n4] !== "full") possible.push(n5);
+                if(gezi[n5] !== "full") possible.push(n5);
             }
             //possition 6
             if((i+1)<=7 &&(j+2)<=7){
                 var n6 = (i+1)+(j+2)*8;
                 // possible.push();
-                if(gezi[n5] !== "full") possible.push(n6);
-            }
+                if(gezi[n6] !== "full") possible.push(n6);
+             }
             //possition 7
             if((i+2)<=7 && (j+1) <= 7){
                 var n7 = (i+2)+(j+1)*8;
                 // possible.push();
                 if(gezi[n7] !== "full") possible.push(n7);
-            }
+            }    
             console.log("after set knight the possible button.size is "+possible.length);
             for(var i = 0; i < possible.length;i++){
                 var id= possible[i];
                 $("#"+id).css("background", "#8de3a4");
-                console.log("possible idx "+ id);
+                
             }
             return possible.length;
         }
