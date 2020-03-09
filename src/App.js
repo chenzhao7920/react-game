@@ -5,6 +5,7 @@ import { renderIntoDocument } from 'react-dom/test-utils';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from './HomePage'
 import Game from './Game'
+import Knight from './Knight'
 import About from './About'
 import PageHeader from './PageHeader'
 import Music from './Music'
@@ -17,6 +18,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/game" component={Game} />
+          <Route path= "/knight" component = {Knight} />
           <Route path="/About" component={About} />
         </Switch>
         

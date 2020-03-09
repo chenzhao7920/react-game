@@ -139,7 +139,7 @@ class Game extends React.Component {
             return true;
         }
     }
-
+     
     render() {
         return (
             <div className='row'>
@@ -150,7 +150,7 @@ class Game extends React.Component {
                     <p>显示胜利玩家</p>
                     <p>已完成步数： {this.state.done}</p>
                     <p>游戏结束： {this.state.isWin}</p>
-                    <p>即将落子玩家：{this.state.red ? '红' : '绿'}</p>
+                    <p>即将落子玩家：{this.state.red ? '红' : '绿'}</p> 
                     <p>千里之行始于足下</p>
                     <button id = "btn">Start</button>
                 </div>
