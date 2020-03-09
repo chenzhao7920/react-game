@@ -33,8 +33,28 @@ class Game extends React.Component {
         var gezi7 = "black";
         var gezi8 = "black";
         var gezi9 = "black";
-
+        
         var gezi = ["black", "black", "black", "black", "black", "black", "black", "black", "black",]
+        $("#btn").on("click",function(){
+            $(".gezi").css("background", "black");
+            g.setState({
+                red: true,
+                done: 0,
+                isWin: '否',
+            })
+            isclickable = true;
+            gezi1 = "black";
+            gezi2 = "black";
+            gezi3 = "black";
+            gezi4 = "black";
+            gezi5 = "black";
+            gezi6 = "black";
+            gezi7 = "black";
+            gezi8 = "black";
+            gezi9 = "black";
+            gezi = ["black", "black", "black", "black", "black", "black", "black", "black", "black"];  
+            
+        })
         $(".gezi").on("click", function () {
             if (!isclickable) return;
             var d = g.state.done;
@@ -74,37 +94,44 @@ class Game extends React.Component {
                 })
             } else if (gezi4 != "black" && gezi4 === gezi5 && gezi5 === gezi6) {
                 console.log("win");
+                isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
             } else if (gezi7 != "black" && gezi7 === gezi8 && gezi8 === gezi9) {
                 console.log("win");
+                isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
             } else if (gezi1 != "black" && gezi1 === gezi4 && gezi1 === gezi7) {
                 console.log("win");
+                isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
             } else if (gezi2 != "black" && gezi2 === gezi5 && gezi5 === gezi8) {
                 console.log("win");
+                isclickable = false;
                 g.setState({
                     isWin: '是',
                     
                 })
             } else if (gezi3 != "black" && gezi3 === gezi6 && gezi6 === gezi9) {
                 console.log("win");
+                isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
             } else if (gezi1 != "black" && gezi1 === gezi5 && gezi5 === gezi9) {
                 console.log("win");
+                isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
             } else if (gezi3 != "black" && gezi3 === gezi5 && gezi5 === gezi7) {
                 console.log("win");
+                isclickable = false;
                 g.setState({
                     isWin: '是',
                 })
@@ -163,6 +190,8 @@ class Game extends React.Component {
                     <p>游戏结束： {this.state.isWin}</p>
                     <p>即将落子玩家：{this.state.red ? '红' : '绿'}</p>
                     <p>千里之行始于足下</p>
+                    <button id = "btn">Start</button>
+            
                 </div>
                 <div class="qipan col-md-6">
                     <div class="row">
