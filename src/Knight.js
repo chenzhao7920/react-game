@@ -38,7 +38,7 @@ class Knight extends React.Component {
             for (var i = 0; i < 64; i++) {
                 gezi.push("empty");
             }
-
+            possible.splice(0, possible.length);
         })
 
         $(".square").on("click", function () {
@@ -50,14 +50,8 @@ class Knight extends React.Component {
             var id = $(this).attr("id");
             console.log("choice Id is " + id + " gezi[id] " + gezi[id]);
             //如果新的id是已经选过的格子，则什么也不干，没选过则清空原先的颜色，重新设新格子 
-            if (gezi[id] === 'empty') {
-                //把留在possible 里的颜色还原，并且把possible array清空
-                for (var i = 0; i < possible.length; i++) {
-                    var pId = possible[i];
-                    $("#" + pId).css("background", "blueviolet");
-                }
+            if (d === 0) {
                 possible.splice(0, possible.length);
-
                 setSquare(id);
                 //set knight to pink
                 $(this).css("background", "#eb8de7");
@@ -68,13 +62,35 @@ class Knight extends React.Component {
                 })
 
                 isclickable = giveOption(id) > 0 ? true : false;
-                if (isclickable === false){
-                    g.setState({ gameover : true})
+            } else {
+                if (gezi[id] === 'possible') {
+                    //把留在possible 里的颜色还原，并且把possible array清空
+                    for (var i = 0; i < possible.length; i++) {
+                        var pId = possible[i];
+                        $("#" + pId).css("background", "blueviolet");
+                        gezi[pId] ='full';
+                    }
+                    possible.splice(0, possible.length);
 
-                    alert("gameover!");  //gameover;
-                }                
+                    setSquare(id);
+                    //set knight to pink
+                    $(this).css("background", "#eb8de7");
+                    // g.func();
+                    d++;
+                    g.setState({
+                        done: d,
+                    })
+
+                    isclickable = giveOption(id) > 0 ? true : false;
+                    if (isclickable === false) {
+                        g.setState({ gameover: true })
+
+                        alert("gameover!");  //gameover;
+                    }
+                }
+                return;
             }
-            return
+            return;
 
         })
 
@@ -98,57 +114,89 @@ class Knight extends React.Component {
             //possition 0
             if ((i + 2) <= 7 && (j - 1) >= 0) {
                 var n0 = (i + 2) + (j - 1) * 8;
-                if (gezi[n0] !== "full") possible.push(n0);
+                if (gezi[n0] !== "full") {
+                    possible.push(n0);
+                    gezi[n0] = "possible";
+                    console.log("the possible button id n0 " + n0);
+                }
             }
             //possition 1
             if ((i + 1) <= 7 && (j - 2) >= 0) {
                 var n1 = (i + 1) + (j - 2) * 8;
                 // possible.push(n2);
-                if (gezi[n1] !== "full") possible.push(n1);
+                if (gezi[n1] !== "full") {
+                    possible.push(n1);
+                    gezi[n1] = "possible";
+                    console.log("the possible button id n1 " + n1);
+                }
             }
             //possition 2
             if ((i - 1) >= 0 && (j - 2) >= 0) {
                 var n2 = (i - 1) + (j - 2) * 8;
                 // possible.push(n2);
-                if (gezi[n2] !== "full") possible.push(n2);
+                if (gezi[n2] !== "full") {
+                    possible.push(n2);
+                    gezi[n2] = "possible";
+                    console.log("the possible button id n2 " + n2);
+                }
 
             }
             //possition 3
             if ((i - 2) >= 0 && (j - 1) >= 0) {
                 var n3 = (i - 2) + (j - 1) * 8;
                 // possible.push();
-                if (gezi[n3] !== "full") possible.push(n3);
+                if (gezi[n3] !== "full") {
+                    possible.push(n3);
+                    gezi[n3] = "possible";
+                    console.log("the possible button id n3 " + n3);
+                }
 
             }
             //possition 4
             if ((i - 2) >= 0 && (j + 1) <= 7) {
                 var n4 = (i - 2) + (j + 1) * 8;
                 // possible.push();
-                if (gezi[n4] !== "full") possible.push(n4);
+                if (gezi[n4] !== "full") {
+                    possible.push(n4);
+                    gezi[n4] = "possible";
+                    console.log("the possible button id n4 " + n4);
+                }
             }
             //possition 5
             if ((i - 1) >= 0 && (j + 2) <= 7) {
                 var n5 = (i - 1) + (j + 2) * 8;
                 // possible.push();
-                if (gezi[n5] !== "full") possible.push(n5);
+                if (gezi[n5] !== "full") {
+                    possible.push(n5);
+                    gezi[n5] = "possible";
+                    console.log("the possible button id n5 " + n5);
+                }
             }
             //possition 6
             if ((i + 1) <= 7 && (j + 2) <= 7) {
                 var n6 = (i + 1) + (j + 2) * 8;
                 // possible.push();
-                if (gezi[n6] !== "full") possible.push(n6);
+                if (gezi[n6] !== "full") {
+                    possible.push(n6);
+                    gezi[n6] = "possible";
+                    console.log("the possible button id n6 " + n6);
+                }
             }
             //possition 7
             if ((i + 2) <= 7 && (j + 1) <= 7) {
                 var n7 = (i + 2) + (j + 1) * 8;
                 // possible.push();
-                if (gezi[n7] !== "full") possible.push(n7);
+                if (gezi[n7] !== "full") {
+                    possible.push(n7);
+                    gezi[n7] = "possible";
+                    console.log("the possible button id n7 " + n7);
+                }
             }
             console.log("after set knight the possible button.size is " + possible.length);
             for (var i = 0; i < possible.length; i++) {
                 var id = possible[i];
                 $("#" + id).css("background", "#8de3a4");
-
+                console.log("the possible button id is " + id);
             }
             return possible.length;
         }
