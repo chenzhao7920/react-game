@@ -68,10 +68,10 @@ class Knight extends React.Component {
                     for (var i = 0; i < possible.length; i++) {
                         var pId = possible[i];
                         $("#" + pId).css("background", "blueviolet");
-                        gezi[pId] ='full';
+                        gezi[pId] ="empty";
                     }
                     possible.splice(0, possible.length);
-
+                    console.log("possible length", possible.length);
                     setSquare(id);
                     //set knight to pink
                     $(this).css("background", "#eb8de7");
@@ -198,6 +198,9 @@ class Knight extends React.Component {
                 $("#" + id).css("background", "#8de3a4");
                 console.log("the possible button id is " + id);
             }
+            // for(var i = 0; i< gezi.length;i++){
+            //     console.log(gezi[i]);
+            // }
             return possible.length;
         }
     }
