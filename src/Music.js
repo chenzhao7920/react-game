@@ -44,31 +44,63 @@ class Music extends React.Component {
       name: "打上花火",
       artist: "DAOKO、米津玄師",
     },
-    
+
   ]
 
-  nextSong(){
-    this.setState({
-      url: this.songs[this.currentSongIndex%this.songs.length].url,
-      imageUrl: this.songs[this.currentSongIndex%this.songs.length].imageUrl,
-      name: this.songs[this.currentSongIndex%this.songs.length].name,
-      artist: this.songs[this.currentSongIndex%this.songs.length].artist,
-    })
+  nextSong() {
     this.currentSongIndex++;
+    this.setState({
+      url: this.songs[this.currentSongIndex % this.songs.length].url,
+      imageUrl: this.songs[this.currentSongIndex % this.songs.length].imageUrl,
+      name: this.songs[this.currentSongIndex % this.songs.length].name,
+      artist: this.songs[this.currentSongIndex % this.songs.length].artist,
+    })
   }
 
   componentDidMount() {
+    var playNext = (e) => {
+      $(".nextAnimation").addClass("col-md-12");
+      if (e === true) {
+        $(".playErrorInfo").css("display", "block");
+        $(".nextAnimation").removeClass("col-md-12");
+        $(".nextAnimation").addClass("col-md-9");
+      }
+      $(".playInfo").css("display", "flex").hide().fadeIn("1").delay(1000).fadeOut("1", ()=>{
+        $(".nextAnimation").removeClass("col-md-12");
+        $(".nextAnimation").removeClass("col-md-9");
+        $(".playErrorInfo").css("display", "none");  
+      });
+      var index = 1;
+      for(var i = 0; i < 8; i++){
+        setTimeout(()=>{
+          console.log($("#next"+(index++)).fadeTo(500, 1).delay(500).fadeTo(500, 0));
+        }, i*64);
+      }
+
+      setTimeout(()=>{
+        this.nextSong();
+        $("#player")[0].load();
+        $("#player")[0].play();
+      }, 1000);
+      setTimeout(() => {
+        if (document.getElementById("player").readyState == 0) {
+          playNext(true);
+        }
+      }, 5000)
+    }
+
     var r = this;
 
-    $(".audio-player-small").css("display", "flex").hide().slideDown(2500, function(){
+    $(".audio-player-small").css("display", "flex").hide().slideDown(2500, function () {
       console.log("FadeinDone")
     });
-    
-    if(r.props.song != undefined && r.props.song.length > 0){
+
+    if (r.props.song != undefined && r.props.song.length > 0) {
       var isfound = false;
-      for(var i = 0; i < this.songs.length; i++){
-        if(this.songs[i].name === r.props.song){
+      for (var i = 0; i < this.songs.length; i++) {
+        if (this.songs[i].name === r.props.song) {
           isfound = true;
+          this.currentSongIndex = i;
           this.setState({ //更新歌曲
             url: this.songs[i].url,
             imageUrl: this.songs[i].imageUrl,
@@ -78,25 +110,27 @@ class Music extends React.Component {
           break;
         }
       }
-      if(!isfound) r.nextSong();
-    }else{
+      if (!isfound) r.nextSong();
+    } else {
       r.nextSong();
     }
-    
-
     var jQuery = $;
-    $("#player").on("timeupdate",  ()=> {
+
+    setTimeout(() => {
+      if (document.getElementById("player").readyState == 0) {
+        playNext(true);
+      }
+    }, 5000)
+
+
+
+    $("#player").on("timeupdate", () => {
       initProgressBar();
-    }).on("ended", function () {
-      this.nextSong();
-      $("#player")[0].load();
-      $("#player")[0].play();
-      console.log($("#player")[0].duration)
+    }).on("ended", () => {
+      playNext();
     })
-    $("#next").on("click", ()=>{
-      this.nextSong();
-      $("#player")[0].load();
-      $("#player")[0].play();
+    $("#next").on("click", () => {
+      playNext();
     })
 
     initPlayers(jQuery('#player-container').length);
@@ -127,15 +161,14 @@ class Music extends React.Component {
 
       var player = document.getElementById('player');
       var length = player.duration
-      if(!length) return;
-      if(!$('#play-btn').hasClass("pause") && player.paused === false){
+      if (!length) return;
+      if (!$('#play-btn').hasClass("pause") && player.paused === false) {
         $('#play-btn').addClass("pause")
       }
       var current_time = player.currentTime;
-      
-      var c =颜色渐变(r, 0xff, g, 0xff, b, 0xff);
+
+      var c = 颜色渐变(r, 0xff, g, 0xff, b, 0xff);
       $(".spinner").css("background-color", c)
-      console.log(c);
       r++;
       g++;
       b++;
@@ -151,7 +184,7 @@ class Music extends React.Component {
       var currentTime = calculateCurrentValue(current_time);
       jQuery(".start-time").html(currentTime);
 
-      $(".done").css("width", (player.currentTime / player.duration)*100+"%")
+      $(".done").css("width", (player.currentTime / player.duration) * 100 + "%")
       document.getElementById('barBg').addEventListener("click", seek);
       var progressbar = document.getElementById('seekObj');
       progressbar.value = (player.currentTime / player.duration);
@@ -168,7 +201,7 @@ class Music extends React.Component {
 
         player.currentTime = percent * player.duration;
         progressbar.value = percent / 100;
-        $(".done").css("width", (player.currentTime / player.duration)*100+"%")
+        $(".done").css("width", (player.currentTime / player.duration) * 100 + "%")
 
       }
     };
@@ -213,22 +246,30 @@ class Music extends React.Component {
       }
     }
 
-    function 颜色渐变(fromRed, endRed, fromGreen, endGreen, fromBlue, endBlue){
-      if(fromRed > endRed) fromRed--;
-      if(fromRed < endRed) fromRed++;
-      if(fromGreen > endGreen) fromGreen--;
-      if(fromGreen < endGreen) fromGreen++;
-      if(fromBlue > endBlue) fromBlue--;
-      if(fromBlue < endBlue) fromBlue++;
-      return "#" + Number(fromRed).toString(16) +"" + Number(fromGreen).toString(16) +"" + Number(fromBlue).toString(16);
+    function 颜色渐变(fromRed, endRed, fromGreen, endGreen, fromBlue, endBlue) {
+      if (fromRed > endRed) fromRed--;
+      if (fromRed < endRed) fromRed++;
+      if (fromGreen > endGreen) fromGreen--;
+      if (fromGreen < endGreen) fromGreen++;
+      if (fromBlue > endBlue) fromBlue--;
+      if (fromBlue < endBlue) fromBlue++;
+      var red = Number(fromRed).toString(16);
+      var green = Number(fromGreen).toString(16) ;
+      var blue = Number(fromBlue).toString(16);
+
+      if(red.length == 1) red = "0" + red;
+      if(green.length == 1) green = "0" + green;
+      if(blue.length == 1) blue = "0" + blue;
+
+      return "#" + red + green + blue;
     }
 
 
   }
 
   render() {
-    return (     
-       <div className="audio-player-small">
+    return (
+      <div className="audio-player-small">
 
         <div id="play-btn" className="pause"></div>
         <div id="next" ></div>
@@ -239,10 +280,10 @@ class Music extends React.Component {
         </div>
         <div className="player-controls scrubber">
           {
-        <p>{this.state.name} <small>by</small> {this.state.artist}
-          <small style={{marginLeft: "15px"}} className="start-time"></small>/
+            <p>{this.state.name} <small>by</small> {this.state.artist}
+              <small style={{ marginLeft: "15px" }} className="start-time"></small>/
           <small style={{}} className="end-time"></small></p>
-        }
+          }
           <div id="seekObjContainer">
             <progress id="seekObj" value="0" max="1">
             </progress>
@@ -256,8 +297,28 @@ class Music extends React.Component {
 
 
         </div>
-      <div className="album-image" style={{ backgroundImage: "url("+this.state.imageUrl+")" }}></div>
+        <div className="album-image" style={{ backgroundImage: "url(" + this.state.imageUrl + ")" }}></div>
+
+        <div className="playInfo row">
+          <div className="playErrorInfo col-md-3">
+            <p id="playErrorInfo">播放失败</p>
+          </div>
+          <div className="nextAnimation">
+            <p>
+              下一曲
+              <span style={{opacity:0}} className="nexti" id="next1">></span>
+              <span style={{opacity:0}} className="nexti" id="next2">></span>
+              <span style={{opacity:0}} className="nexti" id="next3">></span>
+              <span style={{opacity:0}} className="nexti" id="next4">></span>
+              <span style={{opacity:0}} className="nexti" id="next5">></span>
+              <span style={{opacity:0}} className="nexti" id="next6">></span>
+              <span style={{opacity:0}} className="nexti" id="next7">></span>
+              <span style={{opacity:0}} className="nexti" id="next8">></span>
+            </p>
+          </div>
+        </div>
       </div>
+
     )
   }
 }

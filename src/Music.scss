@@ -206,3 +206,32 @@
     }
   }
 }
+
+.playInfo{
+  position: fixed;
+  display: none;
+  height: 50px;
+  width: 110vw;
+  bottom: 0;
+  background: white;
+  z-index: 999;
+  .playErrorInfo{
+    display: none;
+    margin: 0;
+    font-size: 1.5rem;
+    background: #f8d7da;
+    font-weight: bold;
+    text-align: center;
+  }
+  .nextAnimation{
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+    background: #d1ecf1;
+    text-align: center;
+    .nexti{
+      display: inline;
+    }
+
+  }
+}
