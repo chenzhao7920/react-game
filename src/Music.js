@@ -58,10 +58,11 @@ class Music extends React.Component {
   }
 
   componentDidMount() {
+    var r = this;
+
     $(".audio-player-small").css("display", "flex").hide().slideDown(2500, function(){
       console.log("FadeinDone")
     });
-    var r = this;
     
     if(r.props.song != undefined && r.props.song.length > 0){
       var isfound = false;
@@ -84,16 +85,16 @@ class Music extends React.Component {
     
 
     var jQuery = $;
-    $("#player").on("timeupdate", function () {
+    $("#player").on("timeupdate",  ()=> {
       initProgressBar();
     }).on("ended", function () {
-      r.nextSong();
+      this.nextSong();
       $("#player")[0].load();
       $("#player")[0].play();
       console.log($("#player")[0].duration)
     })
-    $("#next").on("click", function(){
-      r.nextSong();
+    $("#next").on("click", ()=>{
+      this.nextSong();
       $("#player")[0].load();
       $("#player")[0].play();
     })
