@@ -190,10 +190,11 @@ class Knight extends React.Component {
                     <button id="btn">Start</button>
                 </div>
                 <div class="board col-md-6">
-                    {this.table.map(row => {
+                    
+                    {this.table.map(row => {//table是一个二维数组，table的每个元素是包含一行id的数组
                         return (
                             <div className="row">
-                                {row.map((boxid) => {
+                                {row.map((boxid) => { //row是一个数组，包含了这一行的id
                                     return (
                                         <div className="square" id={boxid}></div>
                                     )
