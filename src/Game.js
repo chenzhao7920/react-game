@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
 import Popper from 'popper.js';
-import { render } from '@testing-library/react';
+import { render, findAllByTestId } from '@testing-library/react';
 // import { ReactComponent } from '*.svg';
 
 
@@ -14,6 +14,10 @@ class Knight extends React.Component {
         done: 0,
         isWin: '否',
         gameover: false
+    }
+    table = [];
+    componentWillMount() { //因为table不在state里面，所以必须在页面Mount之前将其初始化！
+        this.createTable();
     }
 
     componentDidMount() {
@@ -32,16 +36,25 @@ class Knight extends React.Component {
             $(".square").css("background", "blueviolet");
             g.setState({
                 done: 0,
-                isWin: '否'
+                isWin: '否',
+                isclickable : true,
+                gameover : false
             })
-            gezi.splice(0, gezi.length);
+            for (var i = 0; i < 64; i++) {
+                gezi.pop();
+            }
             for (var i = 0; i < 64; i++) {
                 gezi.push("empty");
             }
-
+            for (var i = 0; i < possible.length; i++) {
+                possible.pop();
+            }
         })
 
         $(".square").on("click", function () {
+            //test
+           
+            // if(g.state.done ===3)  alert("gameover!"); 
 
             if (!isclickable) return;
             var d = g.state.done;
@@ -50,14 +63,8 @@ class Knight extends React.Component {
             var id = $(this).attr("id");
             console.log("choice Id is " + id + " gezi[id] " + gezi[id]);
             //如果新的id是已经选过的格子，则什么也不干，没选过则清空原先的颜色，重新设新格子 
-            if (gezi[id] === 'empty') {
-                //把留在possible 里的颜色还原，并且把possible array清空
-                for (var i = 0; i < possible.length; i++) {
-                    var pId = possible[i];
-                    $("#" + pId).css("background", "blueviolet");
-                }
+            if (d === 0) {
                 possible.splice(0, possible.length);
-
                 setSquare(id);
                 //set knight to pink
                 $(this).css("background", "#eb8de7");
@@ -68,13 +75,36 @@ class Knight extends React.Component {
                 })
 
                 isclickable = giveOption(id) > 0 ? true : false;
-                if (isclickable === false){
-                    g.setState({ gameover : true})
+            } else {
+                if (gezi[id] === 'possible') {
+                    //把留在possible 里的颜色还原，并且把possible array清空
+                    for (var i = 0; i < possible.length; i++) {
+                        var pId = possible[i];
+                        $("#" + pId).css("background", "blueviolet");
+                        gezi[pId] ="empty";
+                    }
+                    possible.splice(0, possible.length);
+                    console.log("possible length", possible.length);
+                    setSquare(id);
+                    //set knight to pink
+                    $(this).css("background", "#eb8de7");
+                    // g.func();
+                    d++;
+                    g.setState({
+                        done: d,
+                    })
 
-                    alert("gameover!");  //gameover;
-                }                
+                    isclickable = giveOption(id) > 0 ? true : false;
+                    if (isclickable === false) {
+                        g.setState({ gameover: true })
+
+                        alert("gameover!");  //gameover;
+                        isclickable =true;
+                    }
+                }
+                return;
             }
-            return
+            return;
 
         })
 
@@ -98,60 +128,90 @@ class Knight extends React.Component {
             //possition 0
             if ((i + 2) <= 7 && (j - 1) >= 0) {
                 var n0 = (i + 2) + (j - 1) * 8;
-                if (gezi[n0] !== "full") possible.push(n0);
+                if (gezi[n0] !== "full") {
+                    possible.push(n0);
+                    gezi[n0] = "possible";
+                }
             }
             //possition 1
             if ((i + 1) <= 7 && (j - 2) >= 0) {
                 var n1 = (i + 1) + (j - 2) * 8;
-                // possible.push(n2);
-                if (gezi[n1] !== "full") possible.push(n1);
+                if (gezi[n1] !== "full") {
+                    possible.push(n1);
+                    gezi[n1] = "possible";                   
+                }
             }
             //possition 2
             if ((i - 1) >= 0 && (j - 2) >= 0) {
                 var n2 = (i - 1) + (j - 2) * 8;
-                // possible.push(n2);
-                if (gezi[n2] !== "full") possible.push(n2);
+                if (gezi[n2] !== "full") {
+                    possible.push(n2);
+                    gezi[n2] = "possible";                  
+                }
 
             }
             //possition 3
             if ((i - 2) >= 0 && (j - 1) >= 0) {
                 var n3 = (i - 2) + (j - 1) * 8;
-                // possible.push();
-                if (gezi[n3] !== "full") possible.push(n3);
+                if (gezi[n3] !== "full") {
+                    possible.push(n3);
+                    gezi[n3] = "possible";                
+                }
 
             }
             //possition 4
             if ((i - 2) >= 0 && (j + 1) <= 7) {
                 var n4 = (i - 2) + (j + 1) * 8;
-                // possible.push();
-                if (gezi[n4] !== "full") possible.push(n4);
+                if (gezi[n4] !== "full") {
+                    possible.push(n4);
+                    gezi[n4] = "possible";
+                  
+                }
             }
             //possition 5
             if ((i - 1) >= 0 && (j + 2) <= 7) {
                 var n5 = (i - 1) + (j + 2) * 8;
-                // possible.push();
-                if (gezi[n5] !== "full") possible.push(n5);
+                if (gezi[n5] !== "full") {
+                    possible.push(n5);
+                    gezi[n5] = "possible";
+                    
+                }
             }
             //possition 6
             if ((i + 1) <= 7 && (j + 2) <= 7) {
                 var n6 = (i + 1) + (j + 2) * 8;
-                // possible.push();
-                if (gezi[n6] !== "full") possible.push(n6);
+                if (gezi[n6] !== "full") {
+                    possible.push(n6);
+                    gezi[n6] = "possible";
+                    
+                }
             }
             //possition 7
             if ((i + 2) <= 7 && (j + 1) <= 7) {
                 var n7 = (i + 2) + (j + 1) * 8;
-                // possible.push();
-                if (gezi[n7] !== "full") possible.push(n7);
+                if (gezi[n7] !== "full") {
+                    possible.push(n7);
+                    gezi[n7] = "possible";
+                }   
             }
-            console.log("after set knight the possible button.size is " + possible.length);
+            
             for (var i = 0; i < possible.length; i++) {
                 var id = possible[i];
                 $("#" + id).css("background", "#8de3a4");
-
             }
+            
             return possible.length;
         }
+    }
+    createTable() {
+        for (var i = 0; i < 8; i++) {
+            var array = [];
+            for (var j = 0; j < 8; j++) {
+                array.push(i * 8 + j);
+            }
+            this.table.push(array);
+        }
+
     }
 
     render() {
@@ -171,156 +231,19 @@ class Knight extends React.Component {
                     <button id="btn">Start</button>
                 </div>
                 <div class="board col-md-6">
-                    <div class="row">
-                        <div class="square" id="0" >
-                        </div>
-                        <div class="square" id="1">
-                        </div>
-                        <div class="square " id="2">
-                        </div>
-                        <div class="square" id="3" >
-                        </div>
-                        <div class="square" id="4">
-                        </div>
-                        <div class="square " id="5">
-                        </div>
-                        <div class="square" id="6" >
-                        </div>
-                        <div class="square" id="7">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="square" id="8" >
-                        </div>
-                        <div class="square" id="9">
-                        </div>
-                        <div class="square " id="10">
-                        </div>
-                        <div class="square" id="11" >
-                        </div>
-                        <div class="square" id="12">
-                        </div>
-                        <div class="square " id="13">
-                        </div>
-                        <div class="square" id="14" >
-                        </div>
-                        <div class="square" id="15">
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="square" id="16" >
-                        </div>
-                        <div class="square" id="17">
-                        </div>
-                        <div class="square " id="18">
-                        </div>
-                        <div class="square" id="19" >
-                        </div>
-                        <div class="square" id="20">
-                        </div>
-                        <div class="square " id="21">
-                        </div>
-                        <div class="square" id="22" >
-                        </div>
-                        <div class="square" id="23">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="square" id="24" >
-                        </div>
-                        <div class="square" id="25">
-                        </div>
-                        <div class="square " id="26">
-                        </div>
-                        <div class="square" id="27" >
-                        </div>
-                        <div class="square" id="28">
-                        </div>
-                        <div class="square " id="29">
-                        </div>
-                        <div class="square" id="30" >
-                        </div>
-                        <div class="square" id="31">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="square" id="32" >
-                        </div>
-                        <div class="square" id="33">
-                        </div>
-                        <div class="square " id="34">
-                        </div>
-                        <div class="square" id="35" >
-                        </div>
-                        <div class="square" id="36">
-                        </div>
-                        <div class="square " id="37">
-                        </div>
-                        <div class="square" id="38" >
-                        </div>
-                        <div class="square" id="39">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="square" id="40" >
-                        </div>
-                        <div class="square" id="41">
-                        </div>
-                        <div class="square " id="42">
-                        </div>
-                        <div class="square" id="43" >
-                        </div>
-                        <div class="square" id="44">
-                        </div>
-                        <div class="square " id="45">
-                        </div>
-                        <div class="square" id="46" >
-                        </div>
-                        <div class="square" id="47">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="square" id="48" >
-                        </div>
-                        <div class="square" id="49">
-                        </div>
-                        <div class="square " id="50">
-                        </div>
-                        <div class="square" id="51" >
-                        </div>
-                        <div class="square" id="52">
-                        </div>
-                        <div class="square " id="53">
-                        </div>
-                        <div class="square" id="54" >
-                        </div>
-                        <div class="square" id="55">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="square" id="56" >
-                        </div>
-                        <div class="square" id="57">
-                        </div>
-                        <div class="square " id="58">
-                        </div>
-                        <div class="square" id="59" >
-                        </div>
-                        <div class="square" id="60">
-                        </div>
-                        <div class="square " id="61">
-                        </div>
-                        <div class="square" id="62" >
-                        </div>
-                        <div class="square" id="63">
-                        </div>
-                    </div>
+                    {this.table.map(row => {//table是一个二维数组，table的每个元素是包含一行id的数组
+                        return (
+                            <div className="row">
+                                {row.map((boxid) => { //row是一个数组，包含了这一行的id
+                                    return (
+                                        <div className="square" id={boxid}></div>
+                                    )
+                                })}
+                            </div>
+                        )
+                    })}
                 </div>
-            </div>
-
-
-
+            </div >
 
         )
     }

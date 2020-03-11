@@ -69,13 +69,7 @@ class Knight extends React.Component {
             var d = g.state.done;
             var id = $(this).attr("id");
             console.log("choice Id is" + id);
-            // if(possible.includes(parseInt(id))!==true) {
-            //     console.log("possible.includes(parseInt(id))!==true"+ possible.includes(parseInt(id)));
-            //     return;
-            // }
-
-            //重设possible 里的颜色
-            //
+             
             var 更新了没 = setSquare(id);
             if (!更新了没) return;
 
