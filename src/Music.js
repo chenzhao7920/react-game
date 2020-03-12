@@ -87,7 +87,7 @@ class Music extends React.Component {
     var jQuery = $;
     $("#player").on("timeupdate",  ()=> {
       initProgressBar();
-    }).on("ended", function () {
+    }).on("ended", ()=> {
       this.nextSong();
       $("#player")[0].load();
       $("#player")[0].play();
