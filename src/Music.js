@@ -235,7 +235,7 @@ class Music extends React.Component {
 
   render() {
     return (     
-       <div className="audio-player-small d-flex p-2 bd-highlight">
+       <div className="audio-player-small ">
 
         <div id="play-btn" className="pause"></div>
         <div id="next" ></div>
@@ -244,7 +244,7 @@ class Music extends React.Component {
             <source src={this.state.url} type="audio/mp3" />
           </audio>
         </div>
-        <div className="player-controls scrubber ">
+        <div className="player-controls scrubber  overflow-hidden d-sm-none d-md-block ">
           {
         <p>{this.state.name} <small>by</small> {this.state.artist}
           <small style={{marginLeft: "15px"}} className="start-time"></small>/
@@ -253,9 +253,9 @@ class Music extends React.Component {
           <div id="seekObjContainer">
             <progress id="seekObj" value="0" max="1">
             </progress>
-            <div className="barBg" id="barBg">
-              <div className="done">
-                <div className="spinner"></div>
+            <div className="barBg " id="barBg">
+              <div className="done  ">
+                <div className="spinner "></div>
               </div>
             </div>
           </div>
