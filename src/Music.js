@@ -7,7 +7,7 @@ import $ from 'jquery';
 import "./Music.scss"
 import Popper from 'popper.js';
 import { render } from '@testing-library/react';
-
+ 
 
 class Music extends React.Component {
   state = {//state是React组件的一个内置对象，使用setState()方法可以便捷的更新页面（159行）。
@@ -44,7 +44,12 @@ class Music extends React.Component {
       name: "打上花火",
       artist: "DAOKO、米津玄師",
     },
-
+    {
+      url: "http://mp3.dwjgrw.cn/down/21353.mp3",
+      imageUrl: "http://mp3.dwjgrw.cn/images/geshou/90.jpg",
+      name: "漫步人生路",
+      artist: "邓丽君",
+    }
   ]
 
   nextSong() {
@@ -126,13 +131,18 @@ class Music extends React.Component {
 
     $("#player").on("timeupdate", () => {
       initProgressBar();
-    }).on("ended", () => {
-      playNext();
+    }).on("ended", ()=> {
+      this.nextSong();
+      $("#player")[0].load();
+      $("#player")[0].play();
+      console.log($("#player")[0].duration)
     })
     $("#next").on("click", () => {
       playNext();
     })
-
+    $(".close").on("click",()=>{
+      $(".audio-player-small").hide();
+    })
     initPlayers(jQuery('#player-container').length);
     function calculateTotalValue(length) {
       var minutes = Math.floor(length / 60),
@@ -268,8 +278,8 @@ class Music extends React.Component {
   }
 
   render() {
-    return (
-      <div className="audio-player-small">
+    return (     
+       <div className="audio-player-small ">
 
         <div id="play-btn" className="pause"></div>
         <div id="next" ></div>
@@ -278,7 +288,7 @@ class Music extends React.Component {
             <source src={this.state.url} type="audio/mp3" />
           </audio>
         </div>
-        <div className="player-controls scrubber">
+        <div className="player-controls scrubber  overflow-hidden d-sm-none d-md-block ">
           {
             <p>{this.state.name} <small>by</small> {this.state.artist}
               <small style={{ marginLeft: "15px" }} className="start-time"></small>/
@@ -287,36 +297,24 @@ class Music extends React.Component {
           <div id="seekObjContainer">
             <progress id="seekObj" value="0" max="1">
             </progress>
-            <div className="barBg" id="barBg">
-              <div className="done">
-                <div className="spinner"></div>
+            <div className="barBg " id="barBg">
+              <div className="done  ">
+                <div className="spinner "></div>
               </div>
             </div>
           </div>
+           
           <br />
-
-
+           
         </div>
-        <div className="album-image" style={{ backgroundImage: "url(" + this.state.imageUrl + ")" }}></div>
-
-        <div className="playInfo row">
-          <div className="playErrorInfo col-md-3">
-            <p id="playErrorInfo">播放失败</p>
-          </div>
-          <div className="nextAnimation">
-            <p>
-              下一曲
-              <span style={{opacity:0}} className="nexti" id="next1">></span>
-              <span style={{opacity:0}} className="nexti" id="next2">></span>
-              <span style={{opacity:0}} className="nexti" id="next3">></span>
-              <span style={{opacity:0}} className="nexti" id="next4">></span>
-              <span style={{opacity:0}} className="nexti" id="next5">></span>
-              <span style={{opacity:0}} className="nexti" id="next6">></span>
-              <span style={{opacity:0}} className="nexti" id="next7">></span>
-              <span style={{opacity:0}} className="nexti" id="next8">></span>
-            </p>
-          </div>
-        </div>
+      <div id = "close" type="button"  class="close"></div>
+          
+       
+      
+       <div className="album-image" style={{ backgroundImage: "url("+this.state.imageUrl+")" }}></div>
+       <button type="button" className="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+      </button>
       </div>
 
     )

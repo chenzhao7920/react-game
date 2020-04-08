@@ -69,13 +69,7 @@ class Knight extends React.Component {
             var d = g.state.done;
             var id = $(this).attr("id");
             console.log("choice Id is" + id);
-            // if(possible.includes(parseInt(id))!==true) {
-            //     console.log("possible.includes(parseInt(id))!==true"+ possible.includes(parseInt(id)));
-            //     return;
-            // }
-
-            //重设possible 里的颜色
-            //
+             
             var 更新了没 = setSquare(id);
             if (!更新了没) return;
 
@@ -193,7 +187,7 @@ class Knight extends React.Component {
                     
                     {this.table.map(row => {//table是一个二维数组，table的每个元素是包含一行id的数组
                         return (
-                            <div className="row">
+                            <div className="flex-row">
                                 {row.map((boxid) => { //row是一个数组，包含了这一行的id
                                     return (
                                         <div className="square" id={boxid}></div>
