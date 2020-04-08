@@ -63,6 +63,8 @@ class Music extends React.Component {
   }
 
   componentDidMount() {
+
+
     var playNext = (e) => {
       $(".nextAnimation").addClass("col-md-12");
       if (e === true) {
@@ -115,9 +117,9 @@ class Music extends React.Component {
           break;
         }
       }
-      if (!isfound) r.nextSong();
+      if (!isfound) playNext();
     } else {
-      r.nextSong();
+      playNext();
     }
     var jQuery = $;
 
@@ -280,7 +282,6 @@ class Music extends React.Component {
   render() {
     return (     
        <div className="audio-player-small ">
-
         <div id="play-btn" className="pause"></div>
         <div id="next" ></div>
         <div className="audio-wrapper" id="player-container" href="javascript:;">
@@ -307,7 +308,27 @@ class Music extends React.Component {
           <br />
            
         </div>
-      <div id = "close" type="button"  class="close"></div>
+        <div className="album-image" style={{ backgroundImage: "url(" + this.state.imageUrl + ")" }}></div>
+
+        <div className="playInfo row">
+          <div className="playErrorInfo col-md-3">
+            <p id="playErrorInfo">播放失败</p>
+          </div>
+          <div className="nextAnimation">
+            <p>
+              下一曲
+              <span style={{opacity:0}} className="nexti" id="next1">></span>
+              <span style={{opacity:0}} className="nexti" id="next2">></span>
+              <span style={{opacity:0}} className="nexti" id="next3">></span>
+              <span style={{opacity:0}} className="nexti" id="next4">></span>
+              <span style={{opacity:0}} className="nexti" id="next5">></span>
+              <span style={{opacity:0}} className="nexti" id="next6">></span>
+              <span style={{opacity:0}} className="nexti" id="next7">></span>
+              <span style={{opacity:0}} className="nexti" id="next8">></span>
+            </p>
+          </div>
+        </div>
+      <div id = "close" type="button"  className="close"></div>
           
        
       
