@@ -1,6 +1,6 @@
-.gezi{
-    background: black;
-    width: 90px;
-    height: 90px;
-    margin: 10px;
+.square{
+    background:blueviolet;
+    width: 50px;
+    height: 50px;
+    margin: 3px;
 }

@@ -218,16 +218,16 @@ class Knight extends React.Component {
         return (
             <div className='row'>
                 <div className="col-md-6 info">
-                    <p>游戏介绍</p>
-                    <p>任选一个格子开始</p>
-                    <p>选定后，在选定格子周围会出现一个绿色光环</p>
-                    <p>从光环中选择下一个灼烧点 </p>
-                    <p>每次选定，都会形成新的光环</p>
-                    <p>已灼烧过的地方不可再次点亮</p>
-                    <p>尽可能的灼烧更多更多的格子</p>
-                    <p>挑战开始!</p>
-                    <p>已完成步数： {this.state.done}</p>
-                    <p>游戏结束： {this.state.gameover ? 'true' : null}</p>
+                    <p>Game Rules</p>
+                    <p>Choose a grid to start.</p>
+                    <p>After selection, a green halo will appear around the selected grid.</p>
+                    <p>Select the next burning point from the aura. </p>
+                    <p>Each time you select, a new aura will be formed.</p>
+                    <p>The place that has been burnt cannot be lit again.</p>
+                    <p>Burn as many grids as possible.</p>
+                    <p>The challenge begins! </p>
+                    <p>Total steps： {this.state.done}</p>
+                    <p>Game over： {this.state.gameover ? 'true' : null}</p>
                     <button id="btn">Start</button>
                 </div>
                 <div class="board col-md-6">

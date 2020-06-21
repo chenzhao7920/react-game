@@ -27,18 +27,6 @@ class Music extends React.Component {
       artist: "未知",
     },
     {
-      url: "http://mp3.9ku.com/mp3/588/587570.mp3",
-      imageUrl: "https://p1.pstatp.com/large/pgc-image/6efc96251b2244509f3ee383c15193de",
-      name: "Gentleman",
-      artist: "刘伟德、戴爱玲",
-    },
-    {
-      url: "https://sharefs.yun.kugou.com/202003081406/b45f21a18e565e58d680d3a31c0e8578/G152/M03/09/14/eJQEAFzmi86AGKhUADI5ULO4uiw484.mp3",
-      imageUrl: "http://p3fx.kgimg.com/stdmusic/400/20190523/20190523195803900253.jpg",
-      name: "迷人的危险",
-      artist: "馅儿、Neko",
-    },
-    {
       url: "http://s85.youtaker.com/other/2017/8-19/mp3239272886136a7f94f1bc49608987bf4d777ac57e85.mp3",
       imageUrl: "http://imge.kugou.com/stdmusic/20170810/20170810111013866169.jpg",
       name: "打上花火",

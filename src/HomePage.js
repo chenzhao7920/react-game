@@ -1,18 +1,25 @@
 import React from 'react';
 import PageHeader from './PageHeader';
-
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 class HomePage extends React.Component{
     render(){
         return(
-            <div>
-                <p>这是个牛逼的react项目，虽然这个项目看起来还很简陋，但是从0到1总是最难的！很快这个项目就很变得很牛逼！Awsome! Cheers!</p> 
-                <p>通过使用React Route实现SPA - Single Page Application</p>
-                <p>
-                    通过SPA可以实现切换页面时音乐播放不中断！<br/>
-                    屏幕过窄的时候播放器显示不正确，需要修正
-                </p>
+             
+            <div className = "row">
+                 <div className="col-md-6 info">
+                <p>This is a react practice project. Although this project looks very simple, from 0 to 1 is always the hardest. Soon it will become richer!</p> 
+                <p>Web features:</p>
+                <li>SPA by using ReactJS</li>
+                <li>Uninterrupted music playing when switching pages</li>
+                <li>Implement a web game</li>   
+                </div>      
             </div>
+            
+         
         )
+         
     }
 }
 

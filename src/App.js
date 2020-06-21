@@ -52,9 +52,9 @@ class App extends React.Component {
         <div className="container">
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/game" component={Game} />
             <Route path="/About" component={About} />
-            <Route path="/knight" component={Knight} />
+            <Route path="/game1" component={Game} />
+            <Route path="/game2" component={Knight} />
           </Switch>
         </div>
         <Music />
