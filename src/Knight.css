@@ -1,40 +1,6 @@
+
 .col-md-6,info {
     margin-top: 30px;
-}
-.img_content {
-    width: 600px;
-    margin: 0;
-    padding: 0;
-    height: 200px;
-    position: absolute;
-    overflow: hidden;
-}
-
-.img_content ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    width: 1000px;
-}
-
-.img_content ul li {
-    float: left;
-    margin: 0;
-    padding: 0;
-}
-
-.img_content ul li img {
-    width: 200px;
-    height: 200px;
-}
-
-button {
-    width: 100px;
-    height: 40px;
-    border-radius: 5px;
-    background: cornflowerblue;
-    color: white;
-    border: 0;
+    
 }
  

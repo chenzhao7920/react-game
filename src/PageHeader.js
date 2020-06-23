@@ -3,13 +3,11 @@ import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import $ from 'jquery';
-import Popper from 'popper.js';
-
+import './PageHeader.css';
 class PageHeader extends React.Component {
     render() {
         return (   
-            <div className='header'>
+            <div className="header">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light" >
                     <NavLink to="/" className="navbar-brand">Chen Zhao</NavLink>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
