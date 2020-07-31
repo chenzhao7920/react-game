@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap';
@@ -18,7 +19,7 @@ class PageHeader extends React.Component {
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
                                 <NavLink to="/" className="nav-link">Home</NavLink>
-                                {/* NavLink 是一个React组件，React Router配合使用以实现SPA */}
+                                 
                             </li>
                             <li className="nav-item">
                                 <NavLink to="/about" className="nav-link">About Me</NavLink>
@@ -47,5 +48,5 @@ class PageHeader extends React.Component {
         )
     }
 }
-
+ 
 export default PageHeader;

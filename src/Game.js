@@ -8,7 +8,6 @@ import Popper from 'popper.js';
 import { render, findAllByTestId } from '@testing-library/react';
 // import { ReactComponent } from '*.svg';
 
-
 class Knight extends React.Component {
     state = {//state是React组件的一个内置对象，使用setState()方法可以便捷的更新页面（159行）。
         done: 0,
