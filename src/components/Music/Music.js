@@ -20,16 +20,16 @@ class Music extends React.Component {
   currentSongIndex = 0
   songs = [
     {
-      url: "https://music.163.com/song/media/outer/url?id=1399534395.mp3",
-      imageUrl: "http://imge.kugou.com/stdmusic/20170810/20170810111013866169.jpg",
-      name: "世界美好与你环环相扣",
-      artist: "未知",
-    },
-    {
       url: "http://s85.youtaker.com/other/2017/8-19/mp3239272886136a7f94f1bc49608987bf4d777ac57e85.mp3",
       imageUrl: "http://imge.kugou.com/stdmusic/20170810/20170810111013866169.jpg",
       name: "打上花火",
       artist: "DAOKO、米津玄師",
+    },
+    {
+      url: "https://music.163.com/song/media/outer/url?id=1399534395.mp3",
+      imageUrl: "http://imge.kugou.com/stdmusic/20170810/20170810111013866169.jpg",
+      name: "世界美好与你环环相扣",
+      artist: "未知",
     },
     {
       url: "http://mp3.dwjgrw.cn/down/21353.mp3",
