@@ -29,18 +29,6 @@ class HomePage extends React.Component{
                     
                     <br></br>
                 </div>
-                <div className="col-md-6">
-                    <UserInput  changed = {this.userNameChangeHandler} />
-                    <button onClick={this.togglePersonsHandler}>Show</button>
-                    {this.state.showUser===true?
-                     <div>
-                    <UserOutput userName ={this.state.userName}/>
-                    <UserOutput userName ={this.state.userName}/>
-                    <UserOutput userName = "ChenZhao"/>
-                     </div>
-                     :null
-                    }
-                </div>
             </div>  
 
         )   
