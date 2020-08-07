@@ -4,7 +4,6 @@ import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import './PageHeader.css';
 class PageHeader extends React.Component {
     render() {
         return (   
@@ -18,8 +17,7 @@ class PageHeader extends React.Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <NavLink to="/" className="nav-link">Home</NavLink>
-                                 
+                                <NavLink to="/" className="nav-link">Home</NavLink>    
                             </li>
                             <li className="nav-item">
                                 <NavLink to="/about" className="nav-link">About Me</NavLink>
@@ -28,10 +26,10 @@ class PageHeader extends React.Component {
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Projects
-                           </a>
+                               </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <NavLink to="/game1" className="dropdown-item">React - Night Tour</NavLink>
-                                    <NavLink to="/game2" className="dropdown-item">React Native - Night Tour</NavLink>
+                                    <NavLink to="/game1" className="dropdown-item">React - Knight Tour</NavLink>
+                                    <NavLink to="/game2" className="dropdown-item">React Native - Knight Tour</NavLink>
                                     <div className="dropdown-divider"></div>
                                     <a className="dropdown-item" href="#">Coming soon</a>
                                 </div>

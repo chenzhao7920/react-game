@@ -1,23 +1,32 @@
 import React from 'react';
-import './Knight.css'
+
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import img1 from './img/Screen-1.png';
-import img2 from './img/Screen-2.png';
-import img3 from './img/Screen-3.png';
-import img4 from './img/Screen-4.png';
+import img1 from '../asset/img/Screen-1.png';
+import img2 from '../asset/img/Screen-2.png';
+import img3 from '../asset/img/Screen-3.png';
+import img4 from '../asset/img/Screen-4.png';
 
 class Knight extends React.Component {
     render() {
+        const styleInfo = {
+            marginTop: '30px'
+        }
+        const styleCard = {
+            margin: '10px',
+            padding: '50px',
+            backgroundColor: 'lightgrey'
+        }
         return (
             <div className='row'  >
-                <div className="col-md-6 info"  >
-                    
+                <div className="col-md-6" style = {styleInfo}>
+                     
                     <p>React Native Version</p>  
                     <a href="https://github.com/chenzhao7920/React-Native"> Github URL:https://github.com/chenzhao7920/React-Native </a>
+                     
                 </div>
-                <div className="board col-md-3">     
+                <div className="col-md-4" style = {styleCard}>          
                       
                      <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                           <ol className="carousel-indicators">
@@ -49,6 +58,7 @@ class Knight extends React.Component {
                         <span className="carousel-control-next-icon" aria-hidden="true"></span>
                         <span className="sr-only">Next</span>
                    </a>
+                   
                 </div>        
             </div>
                   

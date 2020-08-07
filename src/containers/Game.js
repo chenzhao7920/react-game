@@ -1,5 +1,4 @@
 import React from 'react';
-import './Knight.css'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -15,6 +14,7 @@ class Knight extends React.Component {
         gameover: false
     }
     table = [];
+    
     componentWillMount() { //因为table不在state里面，所以必须在页面Mount之前将其初始化！
         this.createTable();
     }
@@ -51,10 +51,7 @@ class Knight extends React.Component {
         })
 
         $(".square").on("click", function () {
-            //test
-           
-            // if(g.state.done ===3)  alert("gameover!"); 
-
+             
             if (!isclickable) return;
             var d = g.state.done;
 
@@ -214,6 +211,12 @@ class Knight extends React.Component {
     }
 
     render() {
+        const squareStyle = {
+            background:'blueviolet',
+            width: '50px',
+            height: '50px',
+            margin: '3px'
+        }
         return (
             <div className='row'>
                 <div className="col-md-6 info">
@@ -229,13 +232,13 @@ class Knight extends React.Component {
                     <p>Game over： {this.state.gameover ? 'true' : null}</p>
                     <button id="btn">Start</button>
                 </div>
-                <div class="board col-md-6">
+                <div class="col-md-6">
                     {this.table.map(row => {//table是一个二维数组，table的每个元素是包含一行id的数组
                         return (
                             <div className="row">
                                 {row.map((boxid) => { //row是一个数组，包含了这一行的id
                                     return (
-                                        <div className="square" id={boxid}></div>
+                                        <div className="square" id={boxid} style = {squareStyle} ></div>
                                     )
                                 })}
                             </div>

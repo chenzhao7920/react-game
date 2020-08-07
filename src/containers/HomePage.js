@@ -1,6 +1,6 @@
 import React from 'react';
-import UserInput from './components/UserInput'
-import UserOutput from './components/UserOutput'
+import UserInput from '../components/UserInput'
+import UserOutput from '../components/UserOutput'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';

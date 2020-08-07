@@ -1,21 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { renderIntoDocument } from 'react-dom/test-utils';
 import { Switch, Route } from 'react-router-dom';
-import HomePage from './HomePage'
-import Game from './Game'
-import About from './About'
-import PageHeader from './PageHeader'
-import Music from './Music'
-import Knight from './Knight'
+import HomePage from './containers/HomePage'
+import Game from './containers/Game'
+import About from './containers/About'
+import Navigation from './components/Navigation'
+import Music from './components/Music/Music'
+import Knight from './containers/Knight'
 import $ from 'jquery'
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <PageHeader />
+        <Navigation />
         <div className="container">
           <Switch>
             <Route exact path="/" component={HomePage} />
