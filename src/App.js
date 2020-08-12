@@ -6,16 +6,19 @@ import HomePage from './containers/HomePage'
 import Game from './containers/Game'
 import About from './containers/About'
 import Navigation from './components/Navigation'
+import Player from './components/Player/player'
 import Music from './components/Music/Music'
 import Knight from './containers/Knight'
+ 
 import $ from 'jquery'
+
 
 class App extends React.Component {
   render() {
     return (
       <div>
         <Navigation />
-        <div className="container">
+        <div className="container ">
           <Switch>
             <Route exact path="/"  render = {()=>{return(<Redirect to="/game1" /> )}} /> 
             <Route exact path="/home" component={HomePage} /> 
@@ -24,7 +27,9 @@ class App extends React.Component {
             <Route exact path="/game2" component={Knight} />
           </Switch>
         </div>
-        <Music />
+         
+        <Player/>
+        
       </div>
     );
   }

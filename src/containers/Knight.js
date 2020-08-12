@@ -11,7 +11,7 @@ import img4 from '../asset/img/Screen-4.png';
 class Knight extends React.Component {
     render() {
         const styleInfo = {
-            marginTop: '30px'
+            marginTop: '40px'
         }
         const styleCard = {
             margin: '10px',

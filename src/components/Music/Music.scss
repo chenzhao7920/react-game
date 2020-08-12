@@ -8,6 +8,20 @@
   display: flex;
   flex-flow: row;
   margin: 0 0 0 0;
+  
+  #pButton {
+    margin-top: 12px;
+    cursor: pointer; }
+  
+  #playhead {
+    width: 8px;
+    height: 8px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    margin-top: -3px;
+    background: black;
+    cursor: pointer; }
+  
   .album-image {
     min-height: 100px;
     width: 110px;
@@ -92,13 +106,13 @@
     }
   }
   #play-btn {
-    background-image: url("http://www.lukeduncan.me/images/play-button.png");
+     
     background-size: cover;
-    width: 75px;
-    height: 75px;
+    width: 30px;
+    height: 30px;
     margin: 2rem 0 2rem 2rem;
     &.pause {
-      background-image: url("http://www.lukeduncan.me/images/pause-button.png");
+       
     }
   }
 }
@@ -131,24 +145,24 @@
     background-size: cover;
   }
   #play-btn {
-    background-image: url("http://www.lukeduncan.me/images/play-button.png");
+     
     background-size: cover;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     margin: .5rem 0 .75rem .75rem;
     &.pause {
-      background-image: url("http://www.lukeduncan.me/images/pause-button.png");
+       
     }
   }
 
   #next {
-    background-image: url("http://www.lukeduncan.me/images/play-button.png");
+     
     background-size: cover;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     margin: .5rem 0 .75rem .75rem;
     &.pause {
-      background-image: url("http://www.lukeduncan.me/images/pause-button.png");
+      
     }
   }
 

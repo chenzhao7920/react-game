@@ -1,22 +1,21 @@
-import React, { PureComponent } from 'react';
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
-import $ from 'jquery';
-import "./Music.scss"
-import Popper from 'popper.js';
-import { render } from '@testing-library/react';
+import React from 'react';
+import { render } from "react-dom";
  
+import $ from 'jquery';
+import "./Music.scss";
+ // get our fontawesome imports
+import { faPlay,faStepForward,faPause} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Music extends React.Component {
-  state = {//state是React组件的一个内置对象，使用setState()方法可以便捷的更新页面（159行）。
+  state = { 
     url: "",
     imageUrl: "",
     name: "",
     artist: "",
-    isLoading: false,
+    isPlaying :false,
   }
-
+  
   currentSongIndex = 0
   songs = [
     {
@@ -29,7 +28,7 @@ class Music extends React.Component {
       url: "https://music.163.com/song/media/outer/url?id=1399534395.mp3",
       imageUrl: "http://imge.kugou.com/stdmusic/20170810/20170810111013866169.jpg",
       name: "世界美好与你环环相扣",
-      artist: "未知",
+      artist: "unknown",
     },
     {
       url: "http://mp3.dwjgrw.cn/down/21353.mp3",
@@ -50,8 +49,6 @@ class Music extends React.Component {
   }
 
   componentDidMount() {
-
-
     var playNext = (e) => {
       $(".nextAnimation").addClass("col-md-12");
       if (e === true) {
@@ -74,10 +71,10 @@ class Music extends React.Component {
       setTimeout(()=>{
         this.nextSong();
         $("#player")[0].load();
-        $("#player")[0].play();
+      //  $("#player")[0].play();
       }, 1000);
       setTimeout(() => {
-        if (document.getElementById("player").readyState == 0) {
+        if (document.getElementById("player").readyState === 0) {
           playNext(true);
         }
       }, 5000)
@@ -95,7 +92,7 @@ class Music extends React.Component {
         if (this.songs[i].name === r.props.song) {
           isfound = true;
           this.currentSongIndex = i;
-          this.setState({ //更新歌曲
+          this.setState({  
             url: this.songs[i].url,
             imageUrl: this.songs[i].imageUrl,
             name: this.songs[i].name,
@@ -111,12 +108,10 @@ class Music extends React.Component {
     var jQuery = $;
 
     setTimeout(() => {
-      if (document.getElementById("player").readyState == 0) {
+      if (document.getElementById("player").readyState === 0) {
         playNext(true);
       }
     }, 5000)
-
-
 
     $("#player").on("timeupdate", () => {
       initProgressBar();
@@ -153,9 +148,7 @@ class Music extends React.Component {
     }
 
 
-    var r = 0x77;
-    var g = 0x00;
-    var b = 0x20;
+ 
     function initProgressBar() {
 
       var player = document.getElementById('player');
@@ -166,15 +159,7 @@ class Music extends React.Component {
       }
       var current_time = player.currentTime;
 
-      var c = 颜色渐变(r, 0xff, g, 0xff, b, 0xff);
-      $(".spinner").css("background-color", c)
-      r++;
-      g++;
-      b++;
-      r %= 0xff;
-      g %= 0xff;
-      b %= 0xff;
-
+       
       // calculate total length of value
       var totalLength = calculateTotalValue(length)
       jQuery(".end-time").html(totalLength);
@@ -214,10 +199,10 @@ class Music extends React.Component {
           // Variables
           // ----------------------------------------------------------
           // audio embed object
-          var playerContainer = document.getElementById('player-container'),
-            player = document.getElementById('player'),
-            isPlaying = false,
-            playBtn = document.getElementById('play-btn');
+           
+           var player = document.getElementById('player');
+           var isPlaying = false;
+           var playBtn = document.getElementById('play-btn');
 
           // Controls Listeners
           // ----------------------------------------------------------
@@ -230,99 +215,86 @@ class Music extends React.Component {
           // Controls & Sounds Methods
           // ----------------------------------------------------------
           function togglePlay() {
-            if (player.paused === false) {
-              player.pause();
-              isPlaying = false;
-              $('#play-btn').removeClass('pause');
-
-            } else {
+             
+            if (player.paused) {
               player.play();
               $('#play-btn').addClass('pause');
               isPlaying = true;
+
+            } else {
+              player.pause();
+              isPlaying = false;
+              $('#play-btn').removeClass('pause');
             }
           }
         }());
       }
     }
-
-    function 颜色渐变(fromRed, endRed, fromGreen, endGreen, fromBlue, endBlue) {
-      if (fromRed > endRed) fromRed--;
-      if (fromRed < endRed) fromRed++;
-      if (fromGreen > endGreen) fromGreen--;
-      if (fromGreen < endGreen) fromGreen++;
-      if (fromBlue > endBlue) fromBlue--;
-      if (fromBlue < endBlue) fromBlue++;
-      var red = Number(fromRed).toString(16);
-      var green = Number(fromGreen).toString(16) ;
-      var blue = Number(fromBlue).toString(16);
-
-      if(red.length == 1) red = "0" + red;
-      if(green.length == 1) green = "0" + green;
-      if(blue.length == 1) blue = "0" + blue;
-
-      return "#" + red + green + blue;
-    }
-
-
   }
 
   render() {
-    return (     
-       <div className="audio-player-small ">
-        <div id="play-btn" className="pause"></div>
-        <div id="next" ></div>
-        <div className="audio-wrapper" id="player-container" href="javascript:;">
-          <audio id="player" autoPlay>
-            <source src={this.state.url} type="audio/mp3" />
-          </audio>
-        </div>
-        <div className="player-controls scrubber  overflow-hidden d-sm-none d-md-block ">
-          {
-            <p>{this.state.name} <small>by</small> {this.state.artist}
-              <small style={{ marginLeft: "15px" }} className="start-time"></small>/
-          <small style={{}} className="end-time"></small></p>
+    return (   
+      <div>   
+        <FontAwesomeIcon icon={["fal", "coffee"]} />
+        <div className="audio-player-small ">
+          {this.isPlaying ? 
+             <FontAwesomeIcon id="play-btn" icon = {faPause} /> :
+             <FontAwesomeIcon id="play-btn" icon = {faPlay } />
           }
-          <div id="seekObjContainer">
-            <progress id="seekObj" value="0" max="1">
-            </progress>
-            <div className="barBg " id="barBg">
-              <div className="done  ">
-                <div className="spinner "></div>
+          <FontAwesomeIcon id="play-btn" icon = {faPause} />
+          <FontAwesomeIcon id="next" icon={faStepForward} />
+
+          <div className="audio-wrapper" id="player-container"  >
+            <audio id="player"  >
+              <source src={this.state.url} type="audio/mp3" />
+            </audio>
+          </div>
+          <div className="player-controls scrubber  overflow-hidden d-sm-none d-md-block ">
+            {
+              <p>{this.state.name} <small>by</small> {this.state.artist}
+                <small style={{ marginLeft: "15px" }} className="start-time"></small>/
+          <small style={{}} className="end-time"></small></p>
+            }
+            <div id="seekObjContainer">
+              <progress id="seekObj" value="0" max="1">
+              </progress>
+              <div className="barBg " id="barBg">
+                <div className="done  ">
+                  <div className="spinner "></div>
+                </div>
               </div>
             </div>
-          </div>
-           
-          <br />
-           
-        </div>
-        <div className="album-image" style={{ backgroundImage: "url(" + this.state.imageUrl + ")" }}></div>
 
-        <div className="playInfo row">
-          <div className="playErrorInfo col-md-3">
-            <p id="playErrorInfo">播放失败</p>
+            <br />
+
           </div>
-          <div className="nextAnimation">
-            <p>
-              下一曲
-              <span style={{opacity:0}} className="nexti" id="next1">></span>
-              <span style={{opacity:0}} className="nexti" id="next2">></span>
-              <span style={{opacity:0}} className="nexti" id="next3">></span>
-              <span style={{opacity:0}} className="nexti" id="next4">></span>
-              <span style={{opacity:0}} className="nexti" id="next5">></span>
-              <span style={{opacity:0}} className="nexti" id="next6">></span>
-              <span style={{opacity:0}} className="nexti" id="next7">></span>
-              <span style={{opacity:0}} className="nexti" id="next8">></span>
-            </p>
+          <div className="album-image" style={{ backgroundImage: "url(" + this.state.imageUrl + ")" }}></div>
+
+          <div className="playInfo row">
+            <div className="playErrorInfo col-md-3">
+              <p id="playErrorInfo">播放失败</p>
+            </div>
+            <div className="nextAnimation">
+              <p>
+                Next Song
+              <span style={{ opacity: 0 }} className="nexti" id="next1">></span>
+                <span style={{ opacity: 0 }} className="nexti" id="next2">></span>
+                <span style={{ opacity: 0 }} className="nexti" id="next3">></span>
+                <span style={{ opacity: 0 }} className="nexti" id="next4">></span>
+                <span style={{ opacity: 0 }} className="nexti" id="next5">></span>
+                <span style={{ opacity: 0 }} className="nexti" id="next6">></span>
+                <span style={{ opacity: 0 }} className="nexti" id="next7">></span>
+                <span style={{ opacity: 0 }} className="nexti" id="next8">></span>
+              </p>
+            </div>
           </div>
-        </div>
-      <div id = "close" type="button"  className="close"></div>
-          
-       
-      
-       <div className="album-image" style={{ backgroundImage: "url("+this.state.imageUrl+")" }}></div>
-       <button type="button" className="close" aria-label="Close">
+          <div id="close" type="button" className="close"></div>
+
+          <div className="album-image" style={{ backgroundImage: "url(" + this.state.imageUrl + ")" }}></div>
+          <button type="button" className="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-      </button>
+          </button>
+        </div>
       </div>
 
     )
