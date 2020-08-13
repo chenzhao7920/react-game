@@ -237,9 +237,15 @@ class Knight extends React.Component {
                     <p>The place that has been burnt cannot be lit again.</p>
                     <p>Burn as many grids as possible.</p>
                     <p>The challenge begins! </p>
-                    <p>Total steps： {this.state.done}</p>
-                    <p>Game over： {this.state.gameover ? 'true' : null}</p>
-                    <button id="btn">Start</button>
+                    <p style= {this.state.done === 0 ? {color: 'black'} : {color: 'red'} }> Total steps： {this.state.done}</p>   
+                     {this.state.gameover ?  
+                         <div>
+                         <bold style = {{color: 'red'}} >Game over !</bold><br></br><br></br>
+                         <button id="btn" type="button" class="btn btn-info">Try Again</button> 
+                         </div>
+                          :null}
+                     
+                    
                 </Card>
                 <Card style = {style}>
                     {this.table.map(row => {//table是一个二维数组，table的每个元素是包含一行id的数组
