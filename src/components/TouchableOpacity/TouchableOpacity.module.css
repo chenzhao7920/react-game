@@ -1,0 +1,23 @@
+.btn {
+    background: #ededed;
+    padding: 2px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 15px;
+    
+    opacity: 1;
+    transition: opacity 300ms ease;
+  }
+  
+  .btnTouched {
+    background: #ededed;
+    padding: 2px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 15px;
+    
+    opacity: 0.5;
+    transition: opacity 300ms ease;
+  }

@@ -3,8 +3,10 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
-import Popper from 'popper.js';
-import { render, findAllByTestId } from '@testing-library/react';
+import Card from '../components/Card/Card.js'
+import TouchableOpacity from '../components/TouchableOpacity/TouchableOpacity'
+ 
+ 
 // import { ReactComponent } from '*.svg';
 
 class Knight extends React.Component {
@@ -24,7 +26,7 @@ class Knight extends React.Component {
         var isclickable = true;
 
         var gezi = [];
-        for (var i = 0; i < 64; i++) {
+        for (let i = 0; i < 64; i++) {
             gezi.push("empty");
         }
         var possible = [];
@@ -39,13 +41,13 @@ class Knight extends React.Component {
                 isclickable : true,
                 gameover : false
             })
-            for (var i = 0; i < 64; i++) {
+            for (let i = 0; i < 64; i++) {
                 gezi.pop();
             }
-            for (var i = 0; i < 64; i++) {
+            for (let i = 0; i < 64; i++) {
                 gezi.push("empty");
             }
-            for (var i = 0; i < possible.length; i++) {
+            for (let i = 0; i < possible.length; i++) {
                 possible.pop();
             }
         })
@@ -191,8 +193,8 @@ class Knight extends React.Component {
                 }   
             }
             
-            for (var i = 0; i < possible.length; i++) {
-                var id = possible[i];
+            for (let i = 0; i < possible.length; i++) {
+                id = possible[i];
                 $("#" + id).css("background", "#8de3a4");
             }
             
@@ -211,6 +213,13 @@ class Knight extends React.Component {
     }
 
     render() {
+        const style = {
+             width: 'auto',
+             background: '#ededed',
+             padding:'30px 40px 30px 40px',
+             boxshadow: '10px 10px 5px black ',
+             
+        }
         const squareStyle = {
             background:'blueviolet',
             width: '50px',
@@ -219,7 +228,7 @@ class Knight extends React.Component {
         }
         return (
             <div className='row'>
-                <div className="col-md-6 info">
+                <Card  >
                     <p>Game Rules</p>
                     <p>Choose a grid to start.</p>
                     <p>After selection, a green halo will appear around the selected grid.</p>
@@ -231,20 +240,22 @@ class Knight extends React.Component {
                     <p>Total steps： {this.state.done}</p>
                     <p>Game over： {this.state.gameover ? 'true' : null}</p>
                     <button id="btn">Start</button>
-                </div>
-                <div class="col-md-6">
+                </Card>
+                <Card style = {style}>
                     {this.table.map(row => {//table是一个二维数组，table的每个元素是包含一行id的数组
                         return (
                             <div className="row">
                                 {row.map((boxid) => { //row是一个数组，包含了这一行的id
-                                    return (
-                                        <div className="square" id={boxid} style = {squareStyle} ></div>
+                                    return ( 
+                                        <TouchableOpacity>
+                                            <div className="square" key = {boxid} id={boxid} style = {squareStyle} ></div>
+                                        </TouchableOpacity>
                                     )
                                 })}
                             </div>
                         )
                     })}
-                </div>
+               </Card>
             </div >
 
         )

@@ -7,27 +7,28 @@ import img1 from '../asset/img/Screen-1.png';
 import img2 from '../asset/img/Screen-2.png';
 import img3 from '../asset/img/Screen-3.png';
 import img4 from '../asset/img/Screen-4.png';
-
+import Card from '../components/Card/Card.js';
 class Knight extends React.Component {
     render() {
         const styleInfo = {
-            marginTop: '40px'
+           flex:1,
+           height: 'auto',
         }
         const styleCard = {
+            flex:1,
             margin: '10px',
             padding: '50px',
-            backgroundColor: 'lightgrey'
+            backgroundColor: '#ededed',
+            borderRadius: '10px'
         }
         return (
             <div className='row'  >
-                <div className="col-md-6" style = {styleInfo}>
-                     
+                 <Card style = {styleInfo} >
                     <p>React Native Version</p>  
                     <a href="https://github.com/chenzhao7920/React-Native"> Github URL:https://github.com/chenzhao7920/React-Native </a>
-                     
-                </div>
+                </Card>
+                
                 <div className="col-md-4" style = {styleCard}>          
-                      
                      <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                           <ol className="carousel-indicators">
                              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -59,7 +60,8 @@ class Knight extends React.Component {
                         <span className="sr-only">Next</span>
                    </a>
                    
-                </div>        
+                </div>  
+                  
             </div>
                   
         )
