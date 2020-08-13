@@ -24,14 +24,13 @@ class PageHeader extends React.Component {
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a className="nav-link dropdown-toggle" href="/Game-Projects" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Game-Projects
                                </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <NavLink to="/game1" className="dropdown-item">React - Knight's Tour</NavLink>
                                     <NavLink to="/game2" className="dropdown-item">React Native - Knight's Tour</NavLink>
-                                    <div className="dropdown-divider"></div>
-                                    <a className="dropdown-item" href="#">Coming soon</a>
+                                    
                                 </div>
                             </li>
 

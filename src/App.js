@@ -1,16 +1,14 @@
 import React from 'react';
 import './App.css';
-import { renderIntoDocument } from 'react-dom/test-utils';
 import { Switch, Route,Redirect} from 'react-router-dom';
 import HomePage from './containers/HomePage'
 import Game from './containers/Game'
 import About from './containers/About'
 import Navigation from './components/Navigation'
 import Player from './components/Player/player'
-import Music from './components/Music/Music'
 import Knight from './containers/Knight'
  
-import $ from 'jquery'
+
 
 
 class App extends React.Component {

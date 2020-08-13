@@ -71,7 +71,6 @@ class Player extends React.Component {
 
   timeUpdate = () => {
     const duration = this.playerRef.duration;
-    const timelineWidth = this.timelineRef.offsetWidth - this.playheadRef.offsetWidth;
     const playPercent = 100 * (this.playerRef.currentTime / duration);
     this.playheadRef.style.width = playPercent + "%";
     const currentTime = this.formatTime(parseInt(this.playerRef.currentTime));
