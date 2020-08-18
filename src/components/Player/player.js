@@ -156,7 +156,7 @@ class Player extends React.Component {
     return (
 
       <div className="card">
-        <audio ref={ref => this.playerRef = ref}>
+        <audio ref={ref => this.playerRef = ref} >
           <source src={currentSong.audio} type="audio/ogg" />
           Your browser does not support the audio element.
         </audio>

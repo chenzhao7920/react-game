@@ -10,9 +10,8 @@ import TouchableOpacity from '../components/TouchableOpacity/TouchableOpacity'
 // import { ReactComponent } from '*.svg';
 
 class Knight extends React.Component {
-    state = {//state是React组件的一个内置对象，使用setState()方法可以便捷的更新页面（159行）。
+    state = {
         done: 0,
-        isWin: '否',
         gameover: false
     }
     table = [];
@@ -33,14 +32,13 @@ class Knight extends React.Component {
 
 
         $("#btn").on("click", function () {
-
+            console.log("buttom clicked");
             $(".square").css("background", "blueviolet");
             g.setState({
                 done: 0,
-                isWin: '否',
-                isclickable : true,
                 gameover : false
             })
+            isclickable = true;
             for (let i = 0; i < 64; i++) {
                 gezi.pop();
             }
@@ -238,14 +236,14 @@ class Knight extends React.Component {
                     <p>Burn as many grids as possible.</p>
                     <p>The challenge begins! </p>
                     <p style= {this.state.done === 0 ? {color: 'black'} : {color: 'red'} }> Total steps： {this.state.done}</p>   
+                    
                      {this.state.gameover ?  
                          <div>
                          <bold style = {{color: 'red'}} >Game over !</bold><br></br><br></br>
-                         <button id="btn" type="button" class="btn btn-info">Try Again</button> 
                          </div>
-                          :null}
+                          : null}
                      
-                    
+                     <button id="btn" type="button" class="btn btn-info">Try Again</button>
                 </Card>
                 <Card style = {style}>
                     {this.table.map(row => {//table是一个二维数组，table的每个元素是包含一行id的数组
