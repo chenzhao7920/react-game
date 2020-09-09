@@ -3,36 +3,54 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
-import Card from '../components/Card/Card.js'
-import TouchableOpacity from '../components/TouchableOpacity/TouchableOpacity'
- 
- 
+import Card from '../../components/Card/Card.js'
+import TouchableOpacity from '../../components/TouchableOpacity/TouchableOpacity'
+import classes from "./game.css"
 // import { ReactComponent } from '*.svg';
 
 class Knight extends React.Component {
-    state = {
-        done: 0,
-        gameover: false
+    constructor(props){
+        super(props);
+        this.state = {
+            done: 0,
+            gameover: false, 
+            width: 0,
+            height: 0,
+        }
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
-    table = [];
     
+    table = [];
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+    }
+    createTable() {
+        for (var i = 0; i < 8; i++) {
+            var array = [];
+            for (var j = 0; j < 8; j++) {
+                array.push(i * 8 + j);
+            }
+            this.table.push(array);
+        }
+    }
+
     componentWillMount() { //因为table不在state里面，所以必须在页面Mount之前将其初始化！
         this.createTable();
+        window.removeEventListener('resize', this.updateWindowDimensions);
     }
-
-    componentDidMount() {
+    componentDidMount() { 
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
         var g = this; //需要一个当前React ObJect来更新他的状态
         var isclickable = true;
-
+        
         var gezi = [];
         for (let i = 0; i < 64; i++) {
             gezi.push("empty");
         }
         var possible = [];
-
-
         $("#btn").on("click", function () {
-            console.log("buttom clicked");
+            console.log("Try Again Button Click");
             $(".square").css("background", "blueviolet");
             g.setState({
                 done: 0,
@@ -57,7 +75,7 @@ class Knight extends React.Component {
 
             //获得新的id
             var id = $(this).attr("id");
-            console.log("choice Id is " + id + " gezi[id] " + gezi[id]);
+            
             //如果新的id是已经选过的格子，则什么也不干，没选过则清空原先的颜色，重新设新格子 
             if (d === 0) {
                 possible.splice(0, possible.length);
@@ -74,13 +92,14 @@ class Knight extends React.Component {
             } else {
                 if (gezi[id] === 'possible') {
                     //把留在possible 里的颜色还原，并且把possible array清空
+                    console.log("possible length", possible.length);
                     for (var i = 0; i < possible.length; i++) {
                         var pId = possible[i];
                         $("#" + pId).css("background", "blueviolet");
                         gezi[pId] ="empty";
                     }
                     possible.splice(0, possible.length);
-                    console.log("possible length", possible.length);
+                    
                     setSquare(id);
                     //set knight to pink
                     $(this).css("background", "#eb8de7");
@@ -103,7 +122,6 @@ class Knight extends React.Component {
             return;
 
         })
-
 
         //这个函数接受一个格子ID， 如果不为空，返回F， 空则gezi状态设为full
         function setSquare(id) {
@@ -195,35 +213,31 @@ class Knight extends React.Component {
                 id = possible[i];
                 $("#" + id).css("background", "#8de3a4");
             }
-            
             return possible.length;
         }
     }
-    createTable() {
-        for (var i = 0; i < 8; i++) {
-            var array = [];
-            for (var j = 0; j < 8; j++) {
-                array.push(i * 8 + j);
-            }
-            this.table.push(array);
-        }
-
-    }
-
+    
+    
     render() {
-        const style = {
+        
+        const card = {
              width: 'auto',
              background: '#ededed',
              padding:'30px 40px 30px 40px',
              boxshadow: '10px 10px 5px black ',
              
-        }
-        const squareStyle = {
+        };
+        const square = {
             background:'blueviolet',
-            width: '50px',
-            height: '50px',
-            margin: '3px'
+            width: '3.5vw',
+            height: '3.5vw',
+            minWidth: '25px',
+            minHeight: '25px',
+            margin: '.3vw',
+           
+             
         }
+     
         return (
             <div className='row'>
                 <Card  >
@@ -245,14 +259,14 @@ class Knight extends React.Component {
                      
                      <button id="btn" type="button" class="btn btn-info">Try Again</button>
                 </Card>
-                <Card style = {style}>
+                <Card style = {card}>
                     {this.table.map(row => {//table是一个二维数组，table的每个元素是包含一行id的数组
                         return (
                             <div className="row">
                                 {row.map((boxid) => { //row是一个数组，包含了这一行的id
                                     return ( 
                                         <TouchableOpacity>
-                                            <div className="square" key = {boxid} id={boxid} style = {squareStyle} ></div>
+                                             <div className='square' key = {boxid} id={boxid} style={square}  ></div>   
                                         </TouchableOpacity>
                                     )
                                 })}

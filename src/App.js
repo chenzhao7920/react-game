@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Switch, Route,Redirect} from 'react-router-dom';
 import HomePage from './containers/HomePage'
-import Game from './containers/Game'
+import Game from './containers/Game/Game'
 import About from './containers/About'
 import Navigation from './components/Navigation'
 import Player from './components/Player/player'
