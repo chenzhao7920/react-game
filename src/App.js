@@ -9,8 +9,6 @@ import Player from './components/Player/player'
 import Knight from './containers/Knight'
  
 
-
-
 class App extends React.Component {
   render() {
     return (
