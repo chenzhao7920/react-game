@@ -225,6 +225,7 @@ class Knight extends React.Component {
              background: '#ededed',
              padding:'30px 40px 30px 40px',
              boxshadow: '10px 10px 5px black ',
+            
              
         };
         const square = {
@@ -234,7 +235,6 @@ class Knight extends React.Component {
             minWidth: '25px',
             minHeight: '25px',
             margin: '.3vw',
-           
              
         }
      

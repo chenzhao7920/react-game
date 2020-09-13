@@ -154,7 +154,7 @@ class Player extends React.Component {
     const { musicList, index, currentTime, pause } = this.state;
     const currentSong = musicList[index];
     return (
-
+ 
       <div className="card">
         <audio ref={ref => this.playerRef = ref} >
           <source src={currentSong.audio} type="audio/ogg" />
@@ -191,6 +191,7 @@ class Player extends React.Component {
           <img alt={currentSong.name} src={currentSong.img} />
         </div>
       </div>
+  
     )
   }
 }

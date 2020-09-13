@@ -10,10 +10,10 @@ import img4 from '../asset/img/Screen-4.png';
 import Card from '../components/Card/Card.js';
 class Knight extends React.Component {
     render() {
-        // const styleInfo = {
-        //    flex:1,
-        //    height: 'auto',
-        // }
+        const styleInfo = {
+           flex:1,
+           height: 'auto',
+        }
         const styleCard = {
             flex:1,
             margin: '10px',
@@ -23,10 +23,10 @@ class Knight extends React.Component {
         }
         return (
             <div className='row'  >
-                 {/* <Card style = {styleInfo} >
+                 <Card style = {styleInfo} >
                     <p>React Native Version</p>  
                     <a href="https://github.com/chenzhao7920/React-Native"> Github URL:https://github.com/chenzhao7920/React-Native </a>
-                </Card> */}
+                </Card>
                 
                 <div className="col-md-4" style = {styleCard}>          
                      <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
