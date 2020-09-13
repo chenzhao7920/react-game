@@ -6,7 +6,7 @@ import $ from 'jquery';
 import Card from '../../components/Card/Card.js'
 import TouchableOpacity from '../../components/TouchableOpacity/TouchableOpacity'
 import classes from "./game.css"
-// import { ReactComponent } from '*.svg';
+ 
 
 class Knight extends React.Component {
     constructor(props){
@@ -240,7 +240,8 @@ class Knight extends React.Component {
      
         return (
             <div className='row'>
-                <Card  >
+                <Card >
+                    
                     <p>Game Rules</p>
                     <p>Choose a grid to start.</p>
                     <p>After selection, a green halo will appear around the selected grid.</p>
